@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Cổng Tuyên truyền & Thử thách Kỹ năng số</title>
+  <style>
+    /* ==========================================================================
+       DEMO BAR (Thanh chọn giao diện thử nghiệm khi gửi khách)
+       ========================================================================== */
+    .demo-bar {
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 8px 12px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-bottom: 2px solid var(--accent);
+      position: relative;
+      z-index: 200;
+    }
+    .demo-btn-theme {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .demo-btn-theme:hover { background: var(--accent); color: #000; }
+    .demo-close {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 14px;
+      cursor: pointer;
+      margin-left: 6px;
+    }
+
+    /* ==========================================================================
+       THEME VARIABLES & CSS RESET
+       ========================================================================== */
+    :root {
+      --primary: #0e6b56;
+      --primary-dark: #074e3e;
+      --primary-light: #e6f6f1;
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --bg: #f3f8f6;
+      --surface: #ffffff;
+      --text: #17324d;
+      --text-muted: #5e7387;
+      --border: #d4e5dd;
+      --success: #15803d;
+      --danger: #b91c1c;
+      --radius: 14px;
+      --shadow: 0 4px 18px rgba(10, 50, 40, 0.08);
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    /* Theme: Đoàn Thanh Niên */
+    body.theme-doanthanhnien {
+      --primary: #005baa;
+      --primary-dark: #00407a;
+      --primary-light: #e6f1fc;
+      --accent: #ff9800;
+      --accent-hover: #e68900;
+      --bg: #f0f5fa;
+      --border: #cde0f2;
+      --shadow: 0 4px 18px rgba(0, 64, 122, 0.08);
+    }
+
+    /* Theme: Chính Quyền / Đảng Bộ */
+    body.theme-chinhquyen {
+      --primary: #a61c1c;
+      --primary-dark: #7a1212;
+      --primary-light: #fbecec;
+      --accent: #eab308;
+      --accent-hover: #ca8a04;
+      --bg: #fdf8f6;
+      --border: #f0d5d5;
+      --shadow: 0 4px 18px rgba(122, 18, 18, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font);
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      padding-bottom: 70px;
+    }
+
+    .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* ==========================================================================
+       HEADER HERO
+       ========================================================================== */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+      color: #ffffff;
+      padding: 24px 0 20px;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+      border-bottom: 4px solid var(--accent);
+    }
+    .hero-top {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+    }
+    .hero-main {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .hero-badge-icon {
+      width: 68px;
+      height: 68px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    .hero-title {
+      font-size: clamp(22px, 5vw, 30px);
+      font-weight: 800;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+    .hero-sub {
+      font-size: 14px;
+      color: #e2f4ed;
+      margin-top: 4px;
+    }
+    .hero-hotline {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent);
+      color: #1a2a22;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 750;
+      text-decoration: none;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      transition: transform 0.15s;
+    }
+    .hero-hotline:active { transform: scale(0.97); }
+
+    /* ==========================================================================
+       STICKY NAVIGATION
+       ========================================================================== */
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    }
+    .nav-scroll {
+      display: flex;
+      gap: 8px;
+      padding: 10px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-scroll::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      white-space: nowrap;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 13.5px;
+      font-weight: 650;
+      padding: 9px 15px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { background: var(--primary-light); }
+    .nav-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+      box-shadow: 0 3px 10px rgba(14, 107, 86, 0.25);
+    }
+
+    /* ==========================================================================
+       CARDS & UI UTILITIES
+       ========================================================================== */
+    .content-area {
+      padding: 20px 0;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow);
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: var(--primary-light);
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+    .btn-main {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+      background: var(--accent);
+      color: #172a21;
+      font-size: 16px;
+      font-weight: 800;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+      transition: all 0.15s;
+      text-decoration: none;
+    }
+    .btn-main:active { transform: scale(0.98); }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      font-weight: 750;
+      padding: 12px 18px;
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      width: 100%;
+      display: inline-block;
+      text-decoration: none;
+      transition: 0.15s;
+    }
+    .btn-outline:hover { background: var(--primary-light); }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+    @media (max-width: 580px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    .feature-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      border-left: 4px solid var(--primary);
+    }
+    .feature-box h4 { font-size: 15px; margin-bottom: 4px; }
+    .feature-box p { font-size: 13px; color: var(--text-muted); }
+
+    /* ==========================================================================
+       QUIZ SYSTEM
+       ========================================================================== */
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13.5px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      background: #fafcfb;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-light);
+    }
+
+    .progress-bar-bg {
+      height: 8px;
+      background: #e2ece7;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 12px 0 16px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .quiz-question-title {
+      font-size: 18px;
+      font-weight: 750;
+      line-height: 1.4;
+      margin-bottom: 16px;
+    }
+
+    .quiz-option {
+      width: 100%;
+      display: block;
+      text-align: left;
+      padding: 14px 16px;
+      margin-bottom: 10px;
+      background: var(--surface);
+      border: 1.5px solid #dce8e2;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+    .quiz-option:hover {
+      background: #f4faf7;
+      border-color: var(--primary);
+    }
+    .quiz-option.correct {
+      background: #e9f8ee !important;
+      border-color: var(--success) !important;
+      color: #14532d !important;
+      font-weight: 700;
+    }
+    .quiz-option.wrong {
+      background: #fef2f2 !important;
+      border-color: var(--danger) !important;
+      color: #991b1b !important;
+      font-weight: 700;
+    }
+
+    .feedback-box {
+      margin-top: 14px;
+      padding: 14px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .feedback-box.correct {
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+    }
+    .feedback-box.wrong {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #991b1b;
+    }
+
+    /* ==========================================================================
+       CANVAS CERTIFICATE MODAL / VIEW
+       ========================================================================== */
+    .cert-container {
+      text-align: center;
+      padding: 10px 0;
+    }
+    .cert-canvas {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+      border: 1px solid #d5c396;
+      margin-bottom: 16px;
+    }
+
+    /* ==========================================================================
+       LEADERBOARD (THI ĐUA THÔN)
+       ========================================================================== */
+    .ranking-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    .ranking-table th, .ranking-table td {
+      padding: 12px 10px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
+    }
+    .ranking-table th {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 750;
+    }
+    .rank-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 13px;
+    }
+    .rank-1 { background: #ffd700; color: #855e00; }
+    .rank-2 { background: #e0e0e0; color: #444; }
+    .rank-3 { background: #cd7f32; color: #fff; }
+
+    /* ==========================================================================
+       FOOTER
+       ========================================================================== */
+    .footer {
+      text-align: center;
+      padding: 24px 16px;
+      background: var(--primary-dark);
+      color: #d1e7dd;
+      font-size: 13px;
+      margin-top: 30px;
+    }
+    .footer strong { color: #ffffff; font-size: 14px; }
+    .footer a { color: var(--accent); text-decoration: none; font-weight: 700; }
+
+    .hide { display: none !important; }
+  </style>
+</head>
+<body class="theme-cand">
+
+  <!-- THANH ĐIỀU KHIỂN DEMO (Dành cho khách hàng bấm test thử giao diện) -->
+  <div class="demo-bar" id="demoControlBar">
+    <span>💡 <b>BẢN DEMO THỬ NGHIỆM</b> (Chọn xem mẫu):</span>
+    <button class="demo-btn-theme" onclick="setDemoTheme('cand')">🛡️ Công An Xã</button>
+    <button class="demo-btn-theme" onclick="setDemoTheme('doanthanhnien')">🌟 Đoàn Thanh Niên</button>
+    <button class="demo-btn-theme" onclick="setDemoTheme('chinhquyen')">🏛️ UBND Xã / Đảng Bộ</button>
+    <button class="demo-close" title="Ẩn thanh demo" onclick="document.getElementById('demoControlBar').style.display='none'">✕</button>
+  </div>
+
+  <!-- HEADER -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-top">🌟 PHONG TRÀO BÌNH DÂN HỌC VỤ SỐ • NGHỊ QUYẾT 57</div>
+      <div class="hero-main">
+        <div class="hero-badge-icon" id="heroIcon">🛡️</div>
+        <div>
+          <h1 class="hero-title" id="unitNameTitle">CÔNG AN XÃ KON GANG</h1>
+          <div class="hero-sub" id="sloganTitle">Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người</div>
+        </div>
+      </div>
+      <a href="tel:02693602006" class="hero-hotline" id="hotlineBtn">
+        📞 Trực ban hỗ trợ: <span id="hotlineNumber">02693.602.006</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- NAVIGATION BAR -->
+  <nav class="nav-bar">
+    <div class="wrap nav-scroll">
+      <button class="nav-btn active" onclick="switchTab('tab-home')">🏠 Trang chủ</button>
+      <button class="nav-btn" onclick="switchTab('tab-quiz')">🧠 Thử thách</button>
+      <button class="nav-btn" onclick="switchTab('tab-leaderboard')">🏆 Bảng vàng thi đua</button>
+      <button class="nav-btn" onclick="switchTab('tab-handbook')">📘 Cẩm nang NQ57</button>
+      <button class="nav-btn" onclick="switchTab('tab-safety')">🛡️ Cảnh giác số</button>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main class="wrap content-area">
+
+    <!-- ====================================================================
+         TAB 1: TRANG CHỦ
+         ==================================================================== -->
+    <section id="tab-home">
+      <div class="card" style="border-left: 5px solid var(--accent);">
+        <span class="badge">🔥 THỬ THÁCH THÁNG NÀY</span>
+        <h2 style="font-size: 22px; margin-bottom: 8px;">Mỗi người dân là một Công dân số gương mẫu</h2>
+        <p style="color: var(--text-muted); font-size: 14.5px; margin-bottom: 16px;">
+          Tham gia bộ câu hỏi trắc nghiệm tình huống thực tế, nhận diện các chiêu trò lừa đảo qua mạng và nhận ngay <b>Giấy chứng nhận Công dân số điện tử</b>.
+        </p>
+        <button class="btn-main" onclick="switchTab('tab-quiz')">Bắt đầu thử thách ngay (10 câu) →</button>
+      </div>
+
+      <h3 style="font-size: 18px; margin: 20px 0 10px;">📌 4 Nhóm kỹ năng cốt lõi bà con cần nắm:</h3>
+      <div class="grid-2">
+        <div class="feature-box">
+          <h4>🛡️ 20 Cạm bẫy lừa đảo mạng</h4>
+          <p>Nhận diện cuộc gọi giả danh Công an, bẫy trúng thưởng, tệp mã độc .APK và mã QR lạ.</p>
+        </div>
+        <div class="feature-box">
+          <h4>📱 10 Kỹ năng an toàn tài khoản</h4>
+          <p>Cách đặt mật khẩu mạnh, bật bảo mật 2 lớp, bảo vệ danh bạ và dữ liệu cá nhân.</p>
+        </div>
+        <div class="feature-box">
+          <h4>📄 10 Tiện ích Dịch vụ công & VNeID</h4>
+          <p>Tự nộp hồ sơ trực tuyến, bảo mật mã định danh, không để đối tượng xấu trục lợi.</p>
+        </div>
+        <div class="feature-box">
+          <h4>💡 10 Tình huống Nghị quyết 57 & AI</h4>
+          <p>Ứng dụng công nghệ, bảo mật dữ liệu thôn làng và sử dụng trí tuệ nhân tạo có trách nhiệm.</p>
+        </div>
+      </div>
+
+      <!-- Khung thống kê nhanh -->
+      <div class="card" style="text-align: center; background: var(--primary-light); border-color: var(--border);">
+        <h4 style="color: var(--primary); font-size: 16px;">📊 KẾT QUẢ THI ĐUA TOÀN XÃ</h4>
+        <div style="display: flex; justify-content: space-around; margin-top: 12px;">
+          <div>
+            <div style="font-size: 28px; font-weight: 800; color: var(--primary);" id="statAttemptsHome">...</div>
+            <div style="font-size: 12.5px; color: var(--text-muted);">Lượt công dân hoàn thành</div>
+          </div>
+          <div>
+            <div style="font-size: 28px; font-weight: 800; color: var(--accent);" id="statAvgHome">...</div>
+            <div style="font-size: 12.5px; color: var(--text-muted);">Tỷ lệ trả lời đúng</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 2: THỬ THÁCH TRẮC NGHIỆM
+         ==================================================================== -->
+    <section id="tab-quiz" class="hide">
+      
+      <!-- BƯỚC 1: ĐĂNG KÝ THÔNG TIN -->
+      <div id="quiz-step-reg" class="card">
+        <span class="badge">📝 ĐĂNG KÝ THI ĐUA</span>
+        <h3 style="font-size: 20px; margin-bottom: 6px;">Thông tin tham gia thử thách</h3>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 16px;">
+          Kết quả của bạn sẽ được cộng điểm trực tiếp vào <b>Bảng vàng phong trào chuyển đổi số</b> của Thôn/Buôn/Tổ dân phố bạn đang sinh sống!
+        </p>
+
+        <div class="form-group">
+          <label>Họ và tên của bạn:</label>
+          <input type="text" id="inputFullName" class="form-control" placeholder="Ví dụ: Nguyễn Văn An (để in lên Giấy chứng nhận)" />
+        </div>
+
+        <div class="form-group">
+          <label>Chọn Thôn / Buôn / Tổ dân phố:</label>
+          <select id="selectVillage" class="form-control">
+            <option value="">-- Vui lòng chọn địa bàn cư trú --</option>
+          </select>
+        </div>
+
+        <button class="btn-main" onclick="startQuizSession()">Vào làm bài ngay (10 câu) →</button>
+      </div>
+
+      <!-- BƯỚC 2: GIAO DIỆN LÀM BÀI TRẮC NGHIỆM -->
+      <div id="quiz-step-play" class="card hide">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span class="badge" id="quizCategoryBadge">Lừa đảo trực tuyến</span>
+          <span style="font-size: 13px; font-weight: 750; color: var(--text-muted);" id="quizCounterText">Câu 1/10</span>
+        </div>
+
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="quizProgressBar"></div>
+        </div>
+
+        <h3 class="quiz-question-title" id="quizQuestionText">Nội dung câu hỏi đang tải...</h3>
+
+        <div id="quizOptionsBox">
+          <!-- Các nút phương án A, B, C, D sẽ được sinh tự động tại đây -->
+        </div>
+
+        <div id="quizFeedbackBox" class="feedback-box hide"></div>
+
+        <button id="quizNextBtn" class="btn-main hide" style="margin-top: 16px;" onclick="nextQuestion()">
+          Câu tiếp theo →
+        </button>
+      </div>
+
+      <!-- BƯỚC 3: KẾT QUẢ & CẤP GIẤY CHỨNG NHẬN -->
+      <div id="quiz-step-result" class="card hide">
+        <div style="text-align: center; margin-bottom: 16px;">
+          <span style="font-size: 48px;">🎉</span>
+          <h2 style="font-size: 24px; color: var(--primary); margin: 6px 0;">CHÚC MỪNG BẠN ĐÃ HOÀN THÀNH!</h2>
+          <div style="font-size: 32px; font-weight: 900; color: var(--accent);" id="finalScoreText">9/10 CÂU ĐÚNG</div>
+          <p style="font-size: 14px; color: var(--text-muted);" id="finalGradeText">Xếp loại: Xuất sắc • Chuẩn Công dân số</p>
+        </div>
+
+        <!-- VÙNG VẼ CANVAS GIẤY CHỨNG NHẬN -->
+        <div class="cert-container" id="certCanvasWrapper">
+          <canvas id="certCanvas" width="900" height="630" class="cert-canvas"></canvas>
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button class="btn-main" onclick="downloadCertificate()">📥 Tải Giấy Chứng Nhận về máy</button>
+            <button class="btn-outline" onclick="switchTab('tab-leaderboard')">🏆 Xem Bảng Vàng</button>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+          <button class="btn-outline" onclick="resetQuiz()">🔁 Làm lại lượt thử thách mới</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ====================================================================
+         TAB 3: BẢNG VÀNG THI ĐUA THEO THÔN
+         ==================================================================== -->
+    <section id="tab-leaderboard" class="hide">
+      <div class="card">
+        <span class="badge">🏆 BẢNG VÀNG THI ĐUA CƠ SỞ</span>
+        <h3 style="font-size: 20px; margin-bottom: 6px;">Xếp hạng phong trào theo Thôn / Buôn</h3>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px;">
+          Số liệu cập nhật thời gian thực dựa trên số lượt người dân hoàn thành bài học kỹ năng số.
+        </p>
+
+        <div id="leaderboardLoading" style="text-align: center; padding: 20px; color: var(--text-muted);">
+          Đang tải dữ liệu thi đua mới nhất...
+        </div>
+
+        <div id="leaderboardContent" class="hide">
+          <table class="ranking-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">Hạng</th>
+                <th>Thôn / Tổ dân phố</th>
+                <th style="text-align: center;">Lượt thi</th>
+                <th style="text-align: right;">Điểm TB</th>
+              </tr>
+            </thead>
+            <tbody id="villageRankingBody">
+              <!-- Danh sách thôn tự động render -->
+            </tbody>
+          </table>
+
+          <h4 style="font-size: 16px; margin: 24px 0 10px; color: var(--primary);">🎖️ Công dân tiêu biểu đạt điểm tối đa gần đây:</h4>
+          <div id="recentHonorsList" class="grid-2">
+            <!-- Danh sách vinh danh -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 4: CẨM NANG NQ57 & KỸ NĂNG SỐ
+         ==================================================================== -->
+    <section id="tab-handbook" class="hide">
+      <div class="card">
+        <span class="badge">📚 THƯ VIỆN KỸ NĂNG</span>
+        <h3 style="font-size: 20px; margin-bottom: 6px;">Cẩm nang chuyển đổi số thực hành</h3>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 14px;">
+          Các bài viết súc tích, dễ nhớ giúp bà con tự bảo vệ tài khoản, nộp hồ sơ công trực tuyến và phòng chống tội phạm công nghệ cao.
+        </p>
+        <input type="search" id="searchHandbookInput" class="form-control" placeholder="🔎 Tìm nhanh: lừa đảo, VNeID, mật khẩu, nộp hồ sơ..." oninput="filterHandbook()" />
+      </div>
+
+      <div id="handbookList">
+        <!-- Danh sách bài viết -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 5: GÓC CẢNH GIÁC SỐ
+         ==================================================================== -->
+    <section id="tab-safety" class="hide">
+      <div class="card">
+        <span class="badge" style="background: #fee2e2; color: #991b1b;">⚠️ PHÒNG CHỐNG TỘI PHẠM MẠNG</span>
+        <h3 style="font-size: 20px; margin-bottom: 8px;">Góc Cảnh giác số & Tra cứu an toàn</h3>
+        <p style="font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 14px;">
+          Trước khi nhấn vào bất kỳ đường link lạ, quét mã QR thanh toán hoặc chuyển tiền theo lời hối thúc của người lạ, hãy thực hiện nguyên tắc <b>"3 KHÔNG - 1 GỌI"</b>:
+        </p>
+
+        <div style="background: var(--primary-light); padding: 14px 16px; border-radius: 12px; margin-bottom: 16px;">
+          <ul style="padding-left: 20px; font-size: 14px; line-height: 1.8;">
+            <li><b>KHÔNG</b> cung cấp mã OTP, mật khẩu ngân hàng, mật khẩu VNeID cho bất kỳ ai.</li>
+            <li><b>KHÔNG</b> bấm vào link lạ nhận trợ cấp, trúng thưởng hay cài tệp tin lạ có đuôi .APK.</li>
+            <li><b>KHÔNG</b> chuyển tiền qua tài khoản cá nhân theo yêu cầu điều tra án qua điện thoại.</li>
+            <li><b>GỌI NGAY</b> cho Trực ban Công an xã hoặc người thân để kiểm chứng độc lập.</li>
+          </ul>
+        </div>
+
+        <h4 style="font-size: 15px; margin-bottom: 8px;">🔍 Công cụ kiểm tra đường link an toàn miễn phí:</h4>
+        <p style="font-size: 13.5px; color: var(--text-muted); margin-bottom: 12px;">
+          Dự án xã hội phi lợi nhuận giúp kiểm tra mức độ an toàn của trang web trước khi bấm:
+        </p>
+        <a href="https://chongluadao.vn/" target="_blank" rel="noopener noreferrer" class="btn-outline" style="text-align: center; margin-bottom: 10px;">
+          Kiểm tra link tại Chongluadao.vn ↗
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <strong id="footerUnitText">CÔNG AN XÃ KON GANG</strong><br />
+      <span>Trực ban tiếp dân: <a href="tel:02693602006" id="footerHotlineLink">02693.602.006</a></span><br />
+      <span style="font-size: 11.5px; color: #a4c9bc; margin-top: 6px; display: inline-block;">
+        Nền tảng Tuyên truyền & Thi đua Công dân số cơ sở • Bản quyền phục vụ nhân dân
+      </span>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       JAVASCRIPT LOGIC & APP ENGINE
+       ========================================================================== -->
+  <script>
+    // Cấu hình mặc định của ứng dụng (sẽ ghi đè khi tải từ Apps Script)
+    let APP_CONFIG = {
+      unitName: 'CÔNG AN XÃ KON GANG',
+      slogan: 'Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người',
+      hotline: '02693.602.006',
+      theme: 'cand',
+      certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ',
+      villages: ['Thôn 1', 'Thôn 2', 'Thôn 3', 'Thôn 4', 'Làng Blo', 'Làng Roh', 'Làng Kon Sơ Lăng']
+    };
+
+    // State quản lý phần thi
+    let currentQuestions = [];
+    let currentPos = 0;
+    let userScore = 0;
+    let isAnswerLocked = false;
+    let quizStartTime = null;
+    let currentUserInfo = { fullName: '', village: '' };
+    let articlesBank = [];
+
+    // Chuyển Tab giao diện
+    function switchTab(tabId) {
+      document.querySelectorAll('main section').forEach(sec => sec.classList.add('hide'));
+      const targetSec = document.getElementById(tabId);
+      if (targetSec) targetSec.classList.remove('hide');
+
+      document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (activeBtn) activeBtn.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      if (tabId === 'tab-leaderboard') loadLeaderboardData();
+      if (tabId === 'tab-handbook') loadHandbookData();
+    }
+
+    // Hàm chuyển đổi nhanh giao diện dành cho khách test demo
+    function setDemoTheme(theme) {
+      if (theme === 'cand') {
+        applyConfig({
+          unitName: 'CÔNG AN XÃ KON GANG',
+          slogan: 'Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người',
+          hotline: '02693.602.006',
+          theme: 'cand',
+          certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ'
+        });
+      } else if (theme === 'doanthanhnien') {
+        applyConfig({
+          unitName: 'ĐOÀN THANH NIÊN XÃ KON GANG',
+          slogan: 'Tuổi trẻ tiên phong Chuyển đổi số • Chung tay xây dựng xã hội số',
+          hotline: '0988.123.456',
+          theme: 'doanthanhnien',
+          certTitle: 'CHỨNG NHẬN THANH NIÊN SỐ TIÊU BIỂU'
+        });
+      } else if (theme === 'chinhquyen') {
+        applyConfig({
+          unitName: 'UBND XÃ KON GANG',
+          slogan: 'Chính quyền số vì nhân dân phục vụ • Đề án 06 quốc gia',
+          hotline: '02693.888.999',
+          theme: 'chinhquyen',
+          certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ GƯƠNG MẪU'
+        });
+      }
+    }
+
+    // 1. KHỞI TẠO DỮ LIỆU BAN ĐẦU
+    window.addEventListener('DOMContentLoaded', () => {
+      initAppConfig();
+      loadHomeStats();
+    });
+
+    function initAppConfig() {
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(applyConfig)
+          .withFailureHandler(() => applyConfig(APP_CONFIG))
+          .getAppConfig();
+      } else {
+        applyConfig(APP_CONFIG);
+      }
+    }
+
+    function applyConfig(cfg) {
+      APP_CONFIG = Object.assign({}, APP_CONFIG, cfg);
+
+      // Cập nhật giao diện
+      document.getElementById('unitNameTitle').textContent = APP_CONFIG.unitName;
+      document.getElementById('sloganTitle').textContent = APP_CONFIG.slogan;
+      document.getElementById('hotlineNumber').textContent = APP_CONFIG.hotline;
+      document.getElementById('hotlineBtn').setAttribute('href', 'tel:' + APP_CONFIG.hotline.replace(/\D/g, ''));
+      document.getElementById('footerUnitText').textContent = APP_CONFIG.unitName;
+      document.getElementById('footerHotlineLink').textContent = APP_CONFIG.hotline;
+
+      // Đổi Theme màu sắc
+      document.body.className = 'theme-' + (APP_CONFIG.theme || 'cand');
+      const iconEl = document.getElementById('heroIcon');
+      if (APP_CONFIG.theme === 'doanthanhnien') iconEl.textContent = '🌟';
+      else if (APP_CONFIG.theme === 'chinhquyen') iconEl.textContent = '🏛️';
+      else iconEl.textContent = '🛡️';
+
+      // Nạp danh sách Thôn vào dropdown
+      const sel = document.getElementById('selectVillage');
+      sel.innerHTML = '<option value="">-- Vui lòng chọn địa bàn cư trú --</option>';
+      (APP_CONFIG.villages || []).forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = v;
+        sel.appendChild(opt);
+      });
+    }
+
+    // 2. LOGIC LÀM BÀI TRẮC NGHIỆM
+    function startQuizSession() {
+      const nameInput = document.getElementById('inputFullName').value.trim();
+      const villageSelect = document.getElementById('selectVillage').value;
+
+      if (!villageSelect) {
+        alert('Bà con vui lòng chọn Thôn / Buôn / Tổ dân phố để tích điểm thi đua cho địa bàn mình nhé!');
+        return;
+      }
+
+      currentUserInfo = {
+        fullName: nameInput || 'Công dân số',
+        village: villageSelect
+      };
+
+      // Tải bộ câu hỏi từ server (hoặc fallback)
+      document.getElementById('quiz-step-reg').classList.add('hide');
+      document.getElementById('quiz-step-play').classList.remove('hide');
+      document.getElementById('quizQuestionText').textContent = 'Đang tải bộ câu hỏi...';
+
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(questions => {
+            currentQuestions = questions;
+            startQuestionFlow();
+          })
+          .withFailureHandler(() => {
+            currentQuestions = getMockQuestions();
+            startQuestionFlow();
+          })
+          .getQuizQuestions();
+      } else {
+        currentQuestions = getMockQuestions();
+        startQuestionFlow();
+      }
+    }
+
+    function startQuestionFlow() {
+      currentPos = 0;
+      userScore = 0;
+      isAnswerLocked = false;
+      quizStartTime = Date.now();
+      renderCurrentQuestion();
+    }
+
+    function renderCurrentQuestion() {
+      if (currentPos >= currentQuestions.length) {
+        finishQuiz();
+        return;
+      }
+
+      isAnswerLocked = false;
+      const q = currentQuestions[currentPos];
+
+      document.getElementById('quizCategoryBadge').textContent = q.category || 'Kỹ năng số';
+      document.getElementById('quizCounterText').textContent = `Câu ${currentPos + 1}/${currentQuestions.length}`;
+      document.getElementById('quizProgressBar').style.width = `${((currentPos) / currentQuestions.length) * 100}%`;
+      document.getElementById('quizQuestionText').textContent = q.question;
+
+      const optBox = document.getElementById('quizOptionsBox');
+      optBox.innerHTML = '';
+      document.getElementById('quizFeedbackBox').className = 'feedback-box hide';
+      document.getElementById('quizNextBtn').classList.add('hide');
+
+      q.options.forEach((optText, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-option';
+        btn.id = 'opt-' + idx;
+        btn.innerHTML = `<strong>${String.fromCharCode(65 + idx)}.</strong> ${optText}`;
+        btn.onclick = () => selectOption(idx);
+        optBox.appendChild(btn);
+      });
+    }
+
+    function selectOption(selectedIdx) {
+      if (isAnswerLocked) return;
+      isAnswerLocked = true;
+
+      const q = currentQuestions[currentPos];
+      const isCorrect = (selectedIdx === q.correct);
+      if (isCorrect) userScore++;
+
+      // Đổi màu các nút
+      q.options.forEach((_, idx) => {
+        const btn = document.getElementById('opt-' + idx);
+        btn.disabled = true;
+        if (idx === q.correct) {
+          btn.classList.add('correct');
+          btn.innerHTML += ' <span>✓ (Đáp án đúng)</span>';
+        } else if (idx === selectedIdx) {
+          btn.classList.add('wrong');
+          btn.innerHTML += ' <span>✕ (Đã chọn)</span>';
+        }
+      });
+
+      // Hiển thị lời giải thích
+      const fbBox = document.getElementById('quizFeedbackBox');
+      fbBox.className = 'feedback-box ' + (isCorrect ? 'correct' : 'wrong');
+      fbBox.innerHTML = `
+        <div style="font-weight:750; font-size:15px; margin-bottom:4px;">
+          ${isCorrect ? '🎉 Chính xác!' : '⚠️ Chưa chính xác!'}
+        </div>
+        <div>${q.explanation}</div>
+      `;
+      fbBox.classList.remove('hide');
+
+      // Nút câu tiếp theo
+      const nextBtn = document.getElementById('quizNextBtn');
+      nextBtn.textContent = (currentPos === currentQuestions.length - 1) ? 'Xem kết quả & Nhận Giấy Chứng Nhận →' : 'Câu tiếp theo →';
+      nextBtn.classList.remove('hide');
+    }
+
+    function nextQuestion() {
+      currentPos++;
+      renderCurrentQuestion();
+    }
+
+    // 3. HOÀN THÀNH BÀI THI & VẼ CHỨNG NHẬN CANVAS
+    function finishQuiz() {
+      document.getElementById('quizProgressBar').style.width = '100%';
+      document.getElementById('quiz-step-play').classList.add('hide');
+      document.getElementById('quiz-step-result').classList.remove('hide');
+
+      const durationSec = Math.round((Date.now() - quizStartTime) / 1000);
+      const total = currentQuestions.length;
+
+      document.getElementById('finalScoreText').textContent = `${userScore}/${total} CÂU ĐÚNG`;
+      let grade = 'Đạt yêu cầu';
+      if (userScore >= 9) grade = 'Xuất sắc';
+      else if (userScore >= 7) grade = 'Đạt chuẩn Công dân số';
+      document.getElementById('finalGradeText').textContent = `Xếp loại: ${grade} • Thuộc ${currentUserInfo.village}`;
+
+      // Gửi kết quả về Google Sheets
+      const payload = {
+        fullName: currentUserInfo.fullName,
+        village: currentUserInfo.village,
+        score: userScore,
+        total: total,
+        durationSeconds: durationSec
+      };
+
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(res => {
+            renderCertificateCanvas(res.certCode || 'CDS-8888');
+          })
+          .withFailureHandler(() => {
+            renderCertificateCanvas('CDS-' + Math.floor(1000 + Math.random() * 9000));
+          })
+          .submitQuizResult(payload);
+      } else {
+        renderCertificateCanvas('CDS-DEMO-9999');
+      }
+    }
+
+    // VẼ GIẤY CHỨNG NHẬN BẰNG CANVAS (Siêu nét, có mộc và mã định danh)
+    function renderCertificateCanvas(certCode) {
+      const canvas = document.getElementById('certCanvas');
+      const ctx = canvas.getContext('2d');
+      const w = canvas.width;
+      const h = canvas.height;
+
+      // 1. Nền hoa văn trang nhã
+      ctx.fillStyle = '#fffdfa';
+      ctx.fillRect(0, 0, w, h);
+
+      // 2. Viền đôi trang trọng
+      ctx.strokeStyle = '#c5a059';
+      ctx.lineWidth = 10;
+      ctx.strokeRect(20, 20, w - 40, h - 40);
+
+      ctx.strokeStyle = '#0e6b56';
+      ctx.lineWidth = 2.5;
+      ctx.strokeRect(32, 32, w - 64, h - 64);
+
+      // 3. Tiêu đề cấp trên
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#555555';
+      ctx.font = 'bold 16px var(--font)';
+      ctx.fillText('PHONG TRÀO TOÀN DÂN HỌC TẬP VÀ PHÁT TRIỂN KỸ NĂNG SỐ', w / 2, 75);
+
+      ctx.fillStyle = '#0e6b56';
+      ctx.font = '800 24px var(--font)';
+      ctx.fillText(APP_CONFIG.unitName.toUpperCase(), w / 2, 110);
+
+      // 4. Tiêu đề Chứng Nhận
+      ctx.fillStyle = '#b31d1d';
+      ctx.font = '900 36px var(--font)';
+      ctx.fillText(APP_CONFIG.certTitle.toUpperCase(), w / 2, 175);
+
+      ctx.fillStyle = '#666666';
+      ctx.font = 'italic 16px var(--font)';
+      ctx.fillText('Chứng nhận công dân đã hoàn thành xuất sắc thử thách kiến thức & kỹ năng số:', w / 2, 215);
+
+      // 5. Tên người nhận
+      ctx.fillStyle = '#074e3e';
+      ctx.font = '800 38px var(--font)';
+      ctx.fillText(currentUserInfo.fullName.toUpperCase(), w / 2, 275);
+
+      // Gạch chân nghệ thuật
+      ctx.strokeStyle = '#eab308';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(w / 2 - 180, 290);
+      ctx.lineTo(w / 2 + 180, 290);
+      ctx.stroke();
+
+      // 6. Địa bàn & Điểm số
+      ctx.fillStyle = '#222222';
+      ctx.font = '600 20px var(--font)';
+      ctx.fillText(`Đơn vị cư trú: ${currentUserInfo.village}`, w / 2, 335);
+
+      ctx.fillStyle = '#0e6b56';
+      ctx.font = 'bold 22px var(--font)';
+      ctx.fillText(`Kết quả: Đạt ${userScore}/10 câu hỏi tình huống thực tế`, w / 2, 375);
+
+      // 7. Lời tuyên dương
+      ctx.fillStyle = '#555555';
+      ctx.font = 'italic 15px var(--font)';
+      ctx.fillText('Đã nắm vững kỹ năng phòng chống lừa đảo mạng, an toàn tài khoản và dịch vụ công trực tuyến.', w / 2, 415);
+
+      // 8. Ngày tháng & Dấu mộc tượng trưng
+      const now = new Date();
+      const dateStr = `Ngày ${now.getDate()} tháng ${now.getMonth() + 1} năm ${now.getFullYear()}`;
+      
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#444444';
+      ctx.font = 'italic 16px var(--font)';
+      ctx.fillText(dateStr, w - 80, 480);
+
+      ctx.textAlign = 'right';
+      ctx.font = 'bold 16px var(--font)';
+      ctx.fillStyle = '#074e3e';
+      ctx.fillText('BAN CHỈ ĐẠO CHUYỂN ĐỔI SỐ', w - 80, 505);
+
+      // Vẽ hình dấu mộc đỏ tròn
+      ctx.save();
+      ctx.strokeStyle = '#c62828';
+      ctx.fillStyle = '#c62828';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(w - 175, 545, 42, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.textAlign = 'center';
+      ctx.font = 'bold 10px var(--font)';
+      ctx.fillText('ĐÃ XÁC THỰC', w - 175, 540);
+      ctx.font = 'bold 12px var(--font)';
+      ctx.fillText('CÔNG DÂN SỐ', w - 175, 555);
+      ctx.restore();
+
+      // 9. Mã tra cứu chống làm giả (Góc trái dưới)
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#888888';
+      ctx.font = '13px monospace';
+      ctx.fillText(`Mã số định danh: ${certCode}`, 70, 570);
+      ctx.fillText('Tra cứu kết quả tại hệ thống dữ liệu công dân số cơ sở', 70, 588);
+    }
+
+    // TẢI GIẤY CHỨNG NHẬN VỀ MÁY (PNG)
+    function downloadCertificate() {
+      const canvas = document.getElementById('certCanvas');
+      const link = document.createElement('a');
+      link.download = `Giay_Chung_Nhan_Cong_Dan_So_${currentUserInfo.fullName.replace(/\s+/g, '_')}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    }
+
+    function resetQuiz() {
+      document.getElementById('quiz-step-result').classList.add('hide');
+      document.getElementById('quiz-step-reg').classList.remove('hide');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // 4. BẢNG VÀNG THI ĐUA THEO THÔN
+    function loadLeaderboardData() {
+      document.getElementById('leaderboardLoading').classList.remove('hide');
+      document.getElementById('leaderboardContent').classList.add('hide');
+
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(renderLeaderboard)
+          .withFailureHandler(() => renderLeaderboard(getMockLeaderboard()))
+          .getLeaderboardStats();
+      } else {
+        renderLeaderboard(getMockLeaderboard());
+      }
+    }
+
+    function renderLeaderboard(data) {
+      document.getElementById('leaderboardLoading').classList.add('hide');
+      document.getElementById('leaderboardContent').classList.remove('hide');
+
+      const tbody = document.getElementById('villageRankingBody');
+      tbody.innerHTML = '';
+
+      if (!data.villageRankings || !data.villageRankings.length) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Chưa có dữ liệu thi đua.</td></tr>';
+      } else {
+        data.villageRankings.forEach((v, idx) => {
+          const tr = document.createElement('tr');
+          let rankHtml = `<span class="rank-badge">${idx + 1}</span>`;
+          if (idx === 0) rankHtml = `<span class="rank-badge rank-1">🥇</span>`;
+          else if (idx === 1) rankHtml = `<span class="rank-badge rank-2">🥈</span>`;
+          else if (idx === 2) rankHtml = `<span class="rank-badge rank-3">🥉</span>`;
+
+          tr.innerHTML = `
+            <td>${rankHtml}</td>
+            <td><strong>${v.name}</strong></td>
+            <td style="text-align:center;"><span class="badge" style="margin:0;">${v.participants} lượt</span></td>
+            <td style="text-align:right; font-weight:750; color:var(--primary);">${v.avgScore}/10</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      // Vinh danh cá nhân
+      const honorsBox = document.getElementById('recentHonorsList');
+      honorsBox.innerHTML = '';
+      if (!data.recentHonors || !data.recentHonors.length) {
+        honorsBox.innerHTML = '<div style="color:var(--text-muted); font-size:13px;">Chưa có lượt đạt điểm tối đa gần đây.</div>';
+      } else {
+        data.recentHonors.forEach(h => {
+          const div = document.createElement('div');
+          div.className = 'feature-box';
+          div.innerHTML = `
+            <div style="font-weight:750; color:var(--primary);">🌟 ${h.name}</div>
+            <div style="font-size:13px; color:var(--text-muted);">Đơn vị: ${h.village} • <b>${h.score}/10 câu</b></div>
+            <div style="font-size:11px; color:#888; margin-top:2px;">Mã số: ${h.certCode}</div>
+          `;
+          honorsBox.appendChild(div);
+        });
+      }
+    }
+
+    // 5. CẨM NANG BÀI VIẾT
+    function loadHandbookData() {
+      if (articlesBank.length) return; // Đã tải rồi
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler(list => {
+            articlesBank = list;
+            renderHandbook(articlesBank);
+          })
+          .withFailureHandler(() => {
+            articlesBank = getMockArticles();
+            renderHandbook(articlesBank);
+          })
+          .getArticlesList();
+      } else {
+        articlesBank = getMockArticles();
+        renderHandbook(articlesBank);
+      }
+    }
+
+    function renderHandbook(list) {
+      const box = document.getElementById('handbookList');
+      if (!list.length) {
+        box.innerHTML = '<div class="card">Không tìm thấy bài viết nào phù hợp.</div>';
+        return;
+      }
+      box.innerHTML = list.map(a => `
+        <article class="card" style="border-left: 4px solid var(--primary);">
+          <span class="badge">${a.category}</span>
+          <h3 style="font-size: 18px; margin: 6px 0 8px;">${a.title}</h3>
+          <p style="font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 12px;">${a.summary}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:12.5px; color:var(--text-muted);">
+            <span>Nguồn: ${a.source}</span>
+            ${a.url ? `<a href="${a.url}" target="_blank" rel="noopener noreferrer" style="color:var(--primary); font-weight:750; text-decoration:none;">Đọc bài gốc ↗</a>` : ''}
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function filterHandbook() {
+      const q = (document.getElementById('searchHandbookInput').value || '').toLowerCase();
+      const filtered = articlesBank.filter(a => (a.title + ' ' + a.summary + ' ' + a.category).toLowerCase().includes(q));
+      renderHandbook(filtered);
+    }
+
+    function loadHomeStats() {
+      if (typeof google !== 'undefined' && google.script && google.script.run) {
+        google.script.run.withSuccessHandler(data => {
+          document.getElementById('statAttemptsHome').textContent = data.totalAttempts || 0;
+          document.getElementById('statAvgHome').textContent = (data.averagePercent || 0) + '%';
+        }).getLeaderboardStats();
+      } else {
+        document.getElementById('statAttemptsHome').textContent = '1,280+';
+        document.getElementById('statAvgHome').textContent = '86%';
+      }
+    }
+
+    // ========================================================================
+    // MOCK DATA (Dùng khi xem preview ngoài Google Apps Script)
+    // ========================================================================
+    function getMockQuestions() {
+      return [
+        {
+          id: 1,
+          category: 'Lừa đảo trực tuyến',
+          question: 'Bạn nhận được tin nhắn SMS yêu cầu cập nhật VNeID mức 2 qua một đường link lạ. Bạn nên làm gì?',
+          options: ['Nhấn vào đường link và nhập mã OTP', 'Chuyển tiếp tin nhắn cho người thân thử', 'Tuyệt đối không bấm link, chỉ cập nhật qua ứng dụng VNeID chính thức'],
+          correct: 2,
+          explanation: 'Cơ quan Công an không gửi đường link lạ qua SMS yêu cầu cập nhật tài khoản định danh.'
+        },
+        {
+          id: 2,
+          category: 'Lừa đảo trực tuyến',
+          question: 'Người tự xưng là cán bộ Công an gọi điện thoại bảo bạn liên quan vụ án ma túy và yêu cầu chuyển tiền để "chứng minh vô tội":',
+          options: ['Lập tức ra ngân hàng chuyển tiền ngay', 'Cung cấp mật khẩu và OTP tài khoản ngân hàng', 'Từ chối chuyển tiền, ngắt máy và liên hệ Công an xã để xác minh'],
+          correct: 2,
+          explanation: 'Cơ quan Công an không làm việc hay yêu cầu chuyển tiền chứng minh vô tội qua điện thoại.'
+        },
+        {
+          id: 3,
+          category: 'Kỹ năng số',
+          question: 'Khi sử dụng mạng Wi-Fi công cộng miễn phí tại quán cà phê, nhà ga, bạn NÊN tránh thao tác nào?',
+          options: ['Đọc báo tin tức', 'Đăng nhập ứng dụng ngân hàng và chuyển khoản số tiền lớn', 'Xem video giải trí'],
+          correct: 1,
+          explanation: 'Wi-Fi công cộng tiềm ẩn nguy cơ bị kẻ gian đánh cắp dữ liệu tài khoản ngân hàng.'
+        }
+      ];
+    }
+
+    function getMockLeaderboard() {
+      return {
+        villageRankings: [
+          { name: 'Thôn 1', participants: 412, avgScore: '8.8' },
+          { name: 'Làng Blo', participants: 350, avgScore: '8.4' },
+          { name: 'Thôn 2', participants: 280, avgScore: '8.1' },
+          { name: 'Làng Roh', participants: 238, avgScore: '7.9' }
+        ],
+        recentHonors: [
+          { name: 'Đinh Thị H’Nham', village: 'Làng Blo', score: 10, certCode: 'CDS-2611-8291' },
+          { name: 'Nguyễn Văn Minh', village: 'Thôn 1', score: 10, certCode: 'CDS-2611-7412' }
+        ]
+      };
+    }
+
+    function getMockArticles() {
+      return [
+        {
+          id: 1,
+          category: 'Nghị quyết 57',
+          title: 'Nghị quyết 57-NQ/TW: Đột phá phát triển khoa học công nghệ và đổi mới sáng tạo',
+          summary: 'Đưa chuyển đổi số và khoa học công nghệ vào đời sống thực tế của từng thôn, buôn, nâng cao đời sống bà con.',
+          source: 'Cổng TTĐT Chính phủ',
+          url: 'https://xaydungchinhsach.chinhphu.vn/'
+        },
+        {
+          id: 2,
+          category: 'An toàn số',
+          title: 'Nhận diện các thủ đoạn lừa đảo phổ biến trên không gian mạng',
+          summary: 'Cảnh giác trước các cuộc gọi giả danh cơ quan chức năng, tin nhắn trúng thưởng và bẫy việc làm online.',
+          source: 'Bộ Công an',
+          url: 'https://bocongan.gov.vn/'
+        }
+      ];
+    }
+  </script>
+</body>
+</html>
