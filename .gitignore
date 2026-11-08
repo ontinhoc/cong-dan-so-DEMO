@@ -1,0 +1,5 @@
+# Temporary / backup files
+logo00.jpg
+*.bak
+.DS_Store
+Thumbs.db
