@@ -396,6 +396,219 @@
     .rank-3 { background: #cd7f32; color: #fff; }
 
     /* ==========================================================================
+       NEWS CARDS & ARTICLE READER MODAL (Trang chủ & Cẩm nang)
+       ========================================================================== */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media (max-width: 680px) {
+      .news-grid { grid-template-columns: 1fr; }
+    }
+    .news-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .news-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(10, 50, 40, 0.12);
+    }
+    .news-thumb-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #0f172a;
+      overflow: hidden;
+    }
+    .news-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s;
+    }
+    .news-card:hover .news-thumb { transform: scale(1.03); }
+    .news-cat-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(14, 107, 86, 0.92);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 750;
+      padding: 3px 8px;
+      border-radius: 6px;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+    .news-body {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .news-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .news-title {
+      font-size: 16px;
+      font-weight: 750;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      color: var(--text);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .news-summary {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 14px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .news-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      border-top: 1px solid #edf2ef;
+      padding-top: 12px;
+      margin-top: auto;
+    }
+    .btn-read-more {
+      background: var(--primary-light);
+      color: var(--primary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 14px;
+      font-size: 13px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .btn-read-more:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+    .link-original {
+      font-size: 12px;
+      color: #0369a1;
+      text-decoration: none;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .link-original:hover { text-decoration: underline; color: #0284c7; }
+
+    /* POPUP MODAL ĐỌC CHI TIẾT BÀI VIẾT */
+    .article-modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      animation: fadeInModal 0.2s ease;
+    }
+    .article-modal {
+      background: #ffffff;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 760px;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.35);
+      overflow: hidden;
+      animation: slideUpModal 0.25s ease;
+    }
+    .modal-header {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+    }
+    .modal-close-btn {
+      background: #e2e8f0;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      transition: all 0.15s;
+    }
+    .modal-close-btn:hover { background: #cbd5e1; color: #0f172a; }
+    .modal-body {
+      padding: 22px 24px;
+      overflow-y: auto;
+      line-height: 1.75;
+      font-size: 15px;
+      color: #1e293b;
+    }
+    .modal-body h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .modal-body img {
+      width: 100%;
+      border-radius: 12px;
+      margin: 14px 0 18px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      display: block;
+    }
+    .modal-body p { margin-bottom: 12px; }
+    .modal-body ul { padding-left: 20px; margin-bottom: 14px; }
+    .modal-body li { margin-bottom: 6px; }
+    .modal-advice-box {
+      background: #ecfdf5;
+      border-left: 4px solid var(--primary);
+      padding: 14px 16px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: #064e3b;
+      line-height: 1.6;
+    }
+    @keyframes fadeInModal { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUpModal { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* ==========================================================================
        FOOTER
        ========================================================================== */
     .footer {
@@ -490,6 +703,25 @@
             <div style="font-size: 28px; font-weight: 800; color: var(--accent);" id="statAvgHome">...</div>
             <div style="font-size: 12.5px; color: var(--text-muted);">Tỷ lệ trả lời đúng</div>
           </div>
+        </div>
+      </div>
+
+      <!-- ================================================================
+           CHUYÊN MỤC BÀI VIẾT TUYÊN TRUYỀN & CẢNH BÁO TỘI PHẠM
+           ================================================================ -->
+      <div style="margin-top: 26px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h3 style="font-size: 19px; color: var(--primary); font-weight: 800;">📰 BÀI VIẾT TUYÊN TRUYỀN & CẢNH BÁO</h3>
+            <p style="font-size: 13.5px; color: var(--text-muted);">Tin tức pháp luật, thủ đoạn tội phạm mạng và hướng dẫn an toàn số tại xã Ia Băng</p>
+          </div>
+          <button class="btn-read-more" onclick="switchTab('tab-handbook')">
+            Xem toàn bộ cẩm nang →
+          </button>
+        </div>
+
+        <div class="news-grid" id="homeNewsGrid">
+          <!-- Render danh sách bài viết tuyên truyền có hình ảnh -->
         </div>
       </div>
     </section>
@@ -671,6 +903,21 @@
   </footer>
 
   <!-- ==========================================================================
+       MODAL ĐỌC BÀI VIẾT CHI TIẾT (POPUP ĐỌC TIẾP)
+       ========================================================================== -->
+  <div id="articleModalBackdrop" class="article-modal-backdrop hide" onclick="closeArticleModal(event)">
+    <div class="article-modal" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <span class="badge" id="modalArticleCat" style="margin: 0;">Chuyên đề</span>
+        <button class="modal-close-btn" onclick="closeArticleModal()" title="Đóng bài viết">✕</button>
+      </div>
+      <div class="modal-body" id="modalArticleBody">
+        <!-- Render nội dung chi tiết bài viết -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
        JAVASCRIPT LOGIC & APP ENGINE
        ========================================================================== -->
   <script>
@@ -698,6 +945,121 @@
     let currentUserInfo = { fullName: '', village: '' };
     let articlesBank = [];
 
+    // ==========================================================================
+    // DANH MỤC BÀI VIẾT TUYÊN TRUYỀN & CẢNH BÁO (DỄ DÀNG TÙY BIẾN / THÊM BÀI MỚI)
+    // Quản trị viên chỉ cần thêm/sửa object trong mảng PROMO_ARTICLES dưới đây:
+    // - id: định danh bài viết duy nhất (không trùng)
+    // - category: nhãn chuyên đề (Cảnh báo lừa đảo, Kỹ năng số, An ninh mạng, Nghị quyết 57...)
+    // - date: ngày phát hành
+    // - source: nguồn hoặc đơn vị phát hành
+    // - title: tiêu đề bài viết
+    // - summary: đoạn tóm tắt ngắn gọn xuất hiện ngoài trang chủ
+    // - image: ảnh minh họa trong thư mục images/ (hoặc URL ảnh online)
+    // - url: liên kết tới bài viết gốc tại Cổng TTĐT Chính phủ, Bộ Công an...
+    // - content: nội dung HTML chi tiết hiển thị khi bấm "Xem chi tiết"
+    // ==========================================================================
+    const PROMO_ARTICLES = [
+      {
+        id: 'news-deepfake-01',
+        category: 'Cảnh báo lừa đảo',
+        date: '08/11/2026',
+        source: 'Công an Xã Ia Băng & Cục An toàn thông tin',
+        title: 'Cảnh giác thủ đoạn gọi video Deepfake AI giả danh Công an để lừa đảo',
+        summary: 'Các đối tượng sử dụng công nghệ trí tuệ nhân tạo Deepfake cắt ghép hình ảnh cán bộ Công an, giả mạo lệnh bắt hoặc yêu cầu chuyển tiền vào tài khoản kiểm tra. Tuyệt đối không làm theo!',
+        image: 'images/news-deepfake.svg',
+        url: 'https://bocongan.gov.vn/',
+        content: `
+          <p><strong>Thủ đoạn mới của tội phạm công nghệ cao:</strong> Hiện nay, trên không gian mạng xuất hiện thủ đoạn sử dụng công nghệ Deepfake (trí tuệ nhân tạo tạo video khuôn mặt và giọng nói giả) để thực hiện các cuộc gọi video qua Zalo, Messenger, Telegram nhằm lừa đảo chiếm đoạt tài sản.</p>
+          <img src="images/news-deepfake.svg" alt="Cảnh báo video Deepfake AI">
+          <p><strong>Đặc điểm nhận diện cuộc gọi Deepfake:</strong></p>
+          <ul>
+            <li>Khuôn mặt người gọi có cử động cứng nhắc, mắt chớp bất thường, miệng chuyển động không khớp với khẩu âm tiếng nói.</li>
+            <li>Cuộc gọi thường diễn ra rất ngắn, đối tượng liên tục báo sóng yếu, mất kết nối để ngắt máy nhanh chóng sau khi người dân vừa thấy hình ảnh người mặc cảnh phục.</li>
+            <li>Sau đó, đối tượng chuyển sang nhắn tin dọa dẫm, gửi lệnh bắt giữ giả mạo hoặc yêu cầu chuyển tiền vào "tài khoản cơ quan điều tra".</li>
+          </ul>
+          <div class="modal-advice-box">
+            <strong>⚠️ Khuyến cáo từ Công an xã Ia Băng:</strong><br>
+            1. Cơ quan Công an <strong>KHÔNG BAO GIỜ</strong> làm việc qua điện thoại, mạng xã hội và <strong>KHÔNG BAO GIỜ</strong> yêu cầu người dân chuyển tiền để chứng minh vô tội.<br>
+            2. Khi nhận cuộc gọi nghi vấn, bà con lập tức ngắt máy, gọi ngay số điện thoại trực ban Công an xã Ia Băng: <strong>02693.599.699</strong> hoặc đến trụ sở Công an xã gần nhất để trình báo.
+          </div>
+        `
+      },
+      {
+        id: 'news-vneid-02',
+        category: 'Kỹ năng số',
+        date: '07/11/2026',
+        source: 'Đề án 06 - Công an xã Ia Băng',
+        title: 'Hướng dẫn bảo vệ tài khoản VNeID Mức 2 và cảnh giác bẫy cập nhật mã số định danh',
+        summary: 'Công an xã Ia Băng khuyến cáo bà con tuyệt đối không cài đặt ứng dụng Dịch vụ công qua đường link lạ (.apk), không cung cấp mật khẩu, mã OTP VNeID cho bất kỳ ai.',
+        image: 'images/news-vneid.svg',
+        url: 'https://dichvucong.gov.vn/',
+        content: `
+          <p>Tài khoản định danh điện tử VNeID mức độ 2 chứa toàn bộ thông tin công dân, căn cước công dân gắn chip, bảo hiểm y tế, giấy phép lái xe... Do đó, việc bảo mật tài khoản VNeID có ý nghĩa sống còn đối với sự an toàn thông tin cá nhân và tài sản của bà con.</p>
+          <img src="images/news-vneid.svg" alt="Bảo mật VNeID Mức 2">
+          <p><strong>Cảnh báo thủ đoạn mạo danh công an hướng dẫn cài VNeID:</strong></p>
+          <ul>
+            <li>Kẻ gian gọi điện tự xưng Công an xã/huyện báo hồ sơ định danh bị sai lệch thông tin và gửi đường link tải ứng dụng giả mạo (đuôi tệp .apk).</li>
+            <li>Khi cài đặt ứng dụng này, điện thoại bị chiếm quyền điều khiển (Accessibility), dẫn đến việc kẻ gian tự động rút sạch tiền trong tài khoản ngân hàng.</li>
+          </ul>
+          <div class="modal-advice-box">
+            <strong>💡 Nguyên tắc "3 KHÔNG" từ Công an xã Ia Băng:</strong><br>
+            • <strong>KHÔNG</strong> tải ứng dụng ngoài kho ứng dụng chính thức (Google Play Store hoặc Apple App Store).<br>
+            • <strong>KHÔNG</strong> bấm vào đường link nhận qua tin nhắn SMS, Zalo lạ.<br>
+            • <strong>KHÔNG</strong> cung cấp mã xác thực OTP hay mật khẩu tài khoản cho bất kỳ ai, kể cả người tự xưng là cán bộ Công an.
+          </div>
+        `
+      },
+      {
+        id: 'news-scam-bank-03',
+        category: 'An ninh mạng',
+        date: '06/11/2026',
+        source: 'Cục An ninh mạng và PCTP công nghệ cao',
+        title: 'Cảnh giác mã QR độc hại và thủ đoạn đánh cắp mã OTP tài khoản ngân hàng',
+        summary: 'Các đối tượng dán đè mã QR độc hại tại các quầy thanh toán hoặc gửi quà tri ân kèm mã QR để dụ người dân quét và cài mã độc đánh cắp tài khoản ngân hàng.',
+        image: 'images/news-scam-bank.svg',
+        url: 'https://bocongan.gov.vn/',
+        content: `
+          <p>Phương thức thanh toán quét mã QR ngày càng phổ biến tại các thôn buôn và hộ kinh doanh trên địa bàn xã Ia Băng. Tuy nhiên, các đối tượng xấu đã lợi dụng sự tiện lợi này để giăng bẫy lừa đảo.</p>
+          <img src="images/news-scam-bank.svg" alt="Cảnh giác QR và OTP">
+          <p><strong>Các phương thức lừa đảo qua mã QR phổ biến:</strong></p>
+          <ul>
+            <li><strong>Dán đè mã QR tại quán:</strong> Kẻ gian in mã QR của mình rồi lén dán đè lên mã QR của chủ quán ăn, tiệm tạp hóa, tiền thanh toán sẽ chuyển thẳng vào tài khoản của kẻ lừa đảo.</li>
+            <li><strong>Gửi bưu phẩm trúng thưởng:</strong> Gửi thiệp mời nhận quà, kèm mã QR để quét nhận quà. Khi quét mã, đường link dẫn đến trang web giả mạo ngân hàng đòi nhập tên đăng nhập và OTP.</li>
+          </ul>
+          <div class="modal-advice-box">
+            <strong>🔒 Biện pháp tự phòng ngừa hiệu quả:</strong><br>
+            • Luôn kiểm tra kỹ tên chủ tài khoản thụ hưởng trước khi bấm nút xác nhận chuyển tiền.<br>
+            • Tuyệt đối không quét mã QR không rõ nguồn gốc dán ở nơi công cộng hoặc gửi qua tin nhắn từ người lạ.<br>
+            • Mã OTP (One-Time Password) là chìa khóa két sắt số của bạn - <strong>không ai có quyền yêu cầu bạn đọc mã này!</strong>
+          </div>
+        `
+      },
+      {
+        id: 'news-nq57-04',
+        category: 'Nghị quyết 57',
+        date: '05/11/2026',
+        source: 'Đảng ủy - HĐND - UBND - Công an xã Ia Băng',
+        title: 'Nghị quyết 57-NQ/TW: Đưa chuyển đổi số đến 14 thôn buôn xã Ia Băng',
+        summary: 'Công an xã Ia Băng tích cực triển khai phong trào toàn dân học tập kỹ năng số, nâng cao kiến thức nhận diện tội phạm công nghệ cao và thanh toán không dùng tiền mặt.',
+        image: 'images/news-nq57.svg',
+        url: 'https://xaydungchinhsach.chinhphu.vn/',
+        content: `
+          <p>Thực hiện tinh thần Nghị quyết số 57-NQ/TW của Bộ Chính trị về tiếp tục xây dựng và phát triển đội ngũ trí thức, ứng dụng mạnh mẽ khoa học công nghệ, đổi mới sáng tạo và chuyển đổi số quốc gia, xã Ia Băng đang tích cực đưa công nghệ vào từng nếp nhà, buôn làng.</p>
+          <img src="images/news-nq57.svg" alt="Nghị quyết 57 xã Ia Băng">
+          <p><strong>Nhiệm vụ trọng tâm tại 14 thôn buôn:</strong></p>
+          <ul>
+            <li>Tổ công nghệ số cộng đồng tại 14 thôn (Bông Lar, Châm Prông, La Sơn, Thôn O, Hàm Rồng, O Đất, Thung Nôm, Bia Tĩh, Blo, Adơkkông, Ia Pết, Brong Goai, Alphun, Ođer) hỗ trợ bà con cài đặt VNeID, kích hoạt thanh toán số.</li>
+            <li>Tổ chức các đợt thi trắc nghiệm trực tuyến "Công dân số gương mẫu" để mọi công dân đều trang bị "lá chắn số" an toàn trước các loại tội phạm lừa đảo công nghệ cao.</li>
+            <li>Ứng dụng cổng dịch vụ công trực tuyến để giải quyết thủ tục cư trú, hộ tịch, cấp đổi giấy tờ nhanh chóng, minh bạch và tiết kiệm chi phí đi lại.</li>
+          </ul>
+          <div class="modal-advice-box">
+            <strong>🤝 Chung tay xây dựng xã Ia Băng an toàn số:</strong><br>
+            Mỗi người dân là một chiến sĩ trên mặt trận an ninh mạng. Hãy tích cực tham gia bài kiểm tra kỹ năng số trên hệ thống và chia sẻ kiến thức hữu ích này cho người thân trong gia đình!
+          </div>
+        `
+      }
+    ];
+
     // Chuyển Tab giao diện
     function switchTab(tabId) {
       document.querySelectorAll('main section').forEach(sec => sec.classList.add('hide'));
@@ -718,6 +1080,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       initAppConfig();
       loadHomeStats();
+      initHomeNews();
     });
 
     function initAppConfig() {
@@ -1101,40 +1464,152 @@
       }
     }
 
-    // 5. CẨM NANG BÀI VIẾT
-    function loadHandbookData() {
-      if (articlesBank.length) return; // Đã tải rồi
+    // ==========================================================================
+    // 5. HIỂN THỊ TIN TỨC TRANG CHỦ & POPUP ĐỌC BÀI VIẾT (MODAL)
+    // ==========================================================================
+    function initHomeNews() {
       if (typeof google !== 'undefined' && google.script && google.script.run) {
         google.script.run
           .withSuccessHandler(list => {
-            articlesBank = list;
-            renderHandbook(articlesBank);
+            articlesBank = (list && list.length) ? list : PROMO_ARTICLES;
+            renderHomeNews(articlesBank);
           })
           .withFailureHandler(() => {
-            articlesBank = getMockArticles();
-            renderHandbook(articlesBank);
+            articlesBank = PROMO_ARTICLES;
+            renderHomeNews(articlesBank);
           })
           .getArticlesList();
       } else {
-        articlesBank = getMockArticles();
-        renderHandbook(articlesBank);
+        articlesBank = PROMO_ARTICLES;
+        renderHomeNews(articlesBank);
       }
+    }
+
+    function renderHomeNews(list) {
+      const grid = document.getElementById('homeNewsGrid');
+      if (!grid) return;
+      if (!list || !list.length) {
+        grid.innerHTML = '<p style="color:var(--text-muted); font-size:14px; grid-column: 1/-1;">Chưa có bài viết tuyên truyền nào.</p>';
+        return;
+      }
+
+      grid.innerHTML = list.map(item => `
+        <article class="news-card">
+          <div class="news-thumb-wrap">
+            <img class="news-thumb" src="${item.image || 'images/news-deepfake.svg'}" alt="${item.title}" loading="lazy" onerror="this.src='images/news-deepfake.svg'">
+            <span class="news-cat-badge">${item.category || 'Tuyên truyền'}</span>
+          </div>
+          <div class="news-body">
+            <div class="news-meta">
+              <span>📅 ${item.date || '08/11/2026'}</span>
+              <span>•</span>
+              <span>🏛️ ${item.source || 'Công an Xã Ia Băng'}</span>
+            </div>
+            <h4 class="news-title">${item.title}</h4>
+            <p class="news-summary">${item.summary || ''}</p>
+            <div class="news-actions">
+              <button class="btn-read-more" onclick="openArticleModal('${item.id}')">
+                Xem chi tiết →
+              </button>
+              ${item.url ? `<a class="link-original" href="${item.url}" target="_blank" rel="noopener noreferrer">Đọc bài gốc ↗</a>` : ''}
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function openArticleModal(articleId) {
+      const art = (articlesBank && articlesBank.find(a => String(a.id) === String(articleId)))
+        || PROMO_ARTICLES.find(a => String(a.id) === String(articleId));
+      if (!art) return;
+
+      const badge = document.getElementById('modalArticleCat');
+      const body = document.getElementById('modalArticleBody');
+      const backdrop = document.getElementById('articleModalBackdrop');
+
+      badge.textContent = art.category || 'Tuyên truyền';
+
+      let html = `
+        <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px;">
+          📅 ${art.date || '08/11/2026'} • ✍️ Nguồn: <strong>${art.source || 'Công an Xã Ia Băng'}</strong>
+        </div>
+        <h2>${art.title}</h2>
+        <p style="font-size: 15px; font-weight: 600; color: #334155; border-left: 3px solid var(--primary); padding-left: 10px; margin: 12px 0;">
+          ${art.summary || ''}
+        </p>
+      `;
+
+      if (art.content) {
+        html += `<div style="margin-top: 14px;">${art.content}</div>`;
+      } else {
+        html += `
+          <img src="${art.image || 'images/news-deepfake.svg'}" alt="${art.title}">
+          <p>Bài viết được biên soạn bởi <strong>${art.source || 'Công an Xã Ia Băng'}</strong> nhằm hướng dẫn công dân nâng cao kỹ năng an toàn số và chủ động phòng ngừa các loại tội phạm.</p>
+        `;
+      }
+
+      if (art.url) {
+        html += `
+          <div style="margin-top: 20px; padding-top: 14px; border-top: 1px dashed var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <span style="font-size: 13px; color: var(--text-muted);">Liên kết bài viết gốc chính thống:</span>
+            <a href="${art.url}" target="_blank" rel="noopener noreferrer" class="link-original" style="font-size: 14px;">
+              Xem nguồn gốc bài viết tại đây ↗
+            </a>
+          </div>
+        `;
+      }
+
+      body.innerHTML = html;
+      backdrop.classList.remove('hide');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeArticleModal(event) {
+      if (event && event.target && event.target !== document.getElementById('articleModalBackdrop')) {
+        return;
+      }
+      const backdrop = document.getElementById('articleModalBackdrop');
+      backdrop.classList.add('hide');
+      document.body.style.overflow = '';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const backdrop = document.getElementById('articleModalBackdrop');
+        if (backdrop && !backdrop.classList.contains('hide')) {
+          backdrop.classList.add('hide');
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    // 6. CẨM NANG BÀI VIẾT (TAB CẨM NANG)
+    function loadHandbookData() {
+      if (articlesBank && articlesBank.length) {
+        renderHandbook(articlesBank);
+        return;
+      }
+      initHomeNews();
+      renderHandbook(articlesBank);
     }
 
     function renderHandbook(list) {
       const box = document.getElementById('handbookList');
-      if (!list.length) {
+      if (!list || !list.length) {
         box.innerHTML = '<div class="card">Không tìm thấy bài viết nào phù hợp.</div>';
         return;
       }
       box.innerHTML = list.map(a => `
-        <article class="card" style="border-left: 4px solid var(--primary);">
-          <span class="badge">${a.category}</span>
-          <h3 style="font-size: 18px; margin: 6px 0 8px;">${a.title}</h3>
-          <p style="font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 12px;">${a.summary}</p>
-          <div style="display:flex; justify-content:space-between; align-items:center; font-size:12.5px; color:var(--text-muted);">
-            <span>Nguồn: ${a.source}</span>
-            ${a.url ? `<a href="${a.url}" target="_blank" rel="noopener noreferrer" style="color:var(--primary); font-weight:750; text-decoration:none;">Đọc bài gốc ↗</a>` : ''}
+        <article class="card" style="border-left: 4px solid var(--primary); display: flex; flex-direction: column; gap: 8px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+            <span class="badge" style="margin:0;">${a.category}</span>
+            <span style="font-size: 12px; color: var(--text-muted);">📅 ${a.date || '08/11/2026'} • 🏛️ ${a.source || 'Công an Xã Ia Băng'}</span>
+          </div>
+          <h3 style="font-size: 18px; margin: 4px 0 6px; color: var(--primary); font-weight: 750;">${a.title}</h3>
+          <p style="font-size: 14px; color: var(--text); line-height: 1.6; margin-bottom: 8px;">${a.summary}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; margin-top: auto; padding-top: 10px; border-top: 1px solid #eef2f6; flex-wrap: wrap; gap: 8px;">
+            <button class="btn-read-more" onclick="openArticleModal('${a.id}')">Xem chi tiết bài viết →</button>
+            ${a.url ? `<a href="${a.url}" target="_blank" rel="noopener noreferrer" class="link-original">Đọc bài gốc ↗</a>` : ''}
           </div>
         </article>
       `).join('');
@@ -1142,7 +1617,8 @@
 
     function filterHandbook() {
       const q = (document.getElementById('searchHandbookInput').value || '').toLowerCase();
-      const filtered = articlesBank.filter(a => (a.title + ' ' + a.summary + ' ' + a.category).toLowerCase().includes(q));
+      const pool = (articlesBank && articlesBank.length) ? articlesBank : PROMO_ARTICLES;
+      const filtered = pool.filter(a => (a.title + ' ' + a.summary + ' ' + a.category).toLowerCase().includes(q));
       renderHandbook(filtered);
     }
 
@@ -1209,24 +1685,7 @@
     }
 
     function getMockArticles() {
-      return [
-        {
-          id: 1,
-          category: 'Nghị quyết 57',
-          title: 'Nghị quyết 57-NQ/TW: Đột phá phát triển khoa học công nghệ và đổi mới sáng tạo',
-          summary: 'Đưa chuyển đổi số và khoa học công nghệ vào đời sống thực tế của từng thôn, buôn, nâng cao đời sống bà con.',
-          source: 'Cổng TTĐT Chính phủ',
-          url: 'https://xaydungchinhsach.chinhphu.vn/'
-        },
-        {
-          id: 2,
-          category: 'An toàn số',
-          title: 'Nhận diện các thủ đoạn lừa đảo phổ biến trên không gian mạng',
-          summary: 'Cảnh giác trước các cuộc gọi giả danh cơ quan chức năng, tin nhắn trúng thưởng và bẫy việc làm online.',
-          source: 'Bộ Công an',
-          url: 'https://bocongan.gov.vn/'
-        }
-      ];
+      return PROMO_ARTICLES;
     }
   </script>
 </body>

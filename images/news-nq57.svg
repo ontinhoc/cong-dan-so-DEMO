@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgNq57" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#064e3b"/>
+      <stop offset="50%" stop-color="#0f766e"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+    <linearGradient id="flagGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#dc2626"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="75%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#fde047" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#fde047" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bgNq57)"/>
+  <circle cx="650" cy="150" r="280" fill="url(#sunGlow)"/>
+
+  <!-- Right Visual: Resolution Emblem & Digital Village -->
+  <g transform="translate(520, 80)">
+    <!-- Shield / Badge -->
+    <circle cx="110" cy="110" r="85" fill="#042f2e" stroke="#f59e0b" stroke-width="4" filter="drop-shadow(0 10px 20px rgba(0,0,0,0.3))"/>
+    
+    <!-- Red circle with yellow star -->
+    <circle cx="110" cy="110" r="65" fill="#dc2626"/>
+    <polygon points="110,65 119,90 146,90 124,106 131,132 110,116 89,132 96,106 74,90 101,90" fill="#facc15"/>
+
+    <!-- Digital Network Dots connecting below -->
+    <g transform="translate(0, 180)">
+      <path d="M 20,40 L 60,10 L 110,35 L 160,10 L 200,40" fill="none" stroke="#67e8f9" stroke-width="2"/>
+      <circle cx="20" cy="40" r="6" fill="#facc15"/>
+      <circle cx="60" cy="10" r="6" fill="#38bdf8"/>
+      <circle cx="110" cy="35" r="8" fill="#10b981"/>
+      <circle cx="160" cy="10" r="6" fill="#38bdf8"/>
+      <circle cx="200" cy="40" r="6" fill="#facc15"/>
+    </g>
+
+    <!-- Label -->
+    <rect x="25" y="240" width="170" height="34" rx="8" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="110" y="262" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="12" text-anchor="middle">🏛️ 14 THÔN LÀNG SỐ HÓA</text>
+  </g>
+
+  <!-- Left Content Info -->
+  <g transform="translate(50, 110)">
+    <!-- Tag -->
+    <rect width="180" height="32" rx="16" fill="url(#flagGrad)"/>
+    <text x="90" y="21" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="12" text-anchor="middle" letter-spacing="0.5">📜 NGHỊ QUYẾT 57-NQ/TW</text>
+
+    <text x="0" y="85" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="34">KHOA HỌC & ĐỔI MỚI</text>
+    <text x="0" y="130" fill="#fef08a" font-family="sans-serif" font-weight="800" font-size="34">CHUYỂN ĐỔI SỐ XÃ</text>
+
+    <text x="0" y="178" fill="#e2e8f0" font-family="sans-serif" font-size="16" font-weight="500">Đưa công nghệ số phục vụ đời sống nhân dân 14 thôn/buôn</text>
+    <text x="0" y="204" fill="#99f6e4" font-family="sans-serif" font-size="14">Mỗi người dân là một công dân số gương mẫu, an toàn và trách nhiệm.</text>
+
+    <g transform="translate(0, 235)">
+      <rect width="260" height="38" rx="8" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.25"/>
+      <text x="15" y="24" fill="#a7f3d0" font-family="sans-serif" font-weight="bold" font-size="13">🌟 Phong trào: Toàn dân học tập số</text>
+    </g>
+  </g>
+</svg>

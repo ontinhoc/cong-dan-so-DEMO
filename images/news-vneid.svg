@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgVneid" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#042f2e"/>
+      <stop offset="50%" stop-color="#064e3b"/>
+      <stop offset="100%" stop-color="#0f766e"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <radialGradient id="tealGlow" cx="75%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#14b8a6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bgVneid)"/>
+  <circle cx="660" cy="140" r="260" fill="url(#tealGlow)"/>
+
+  <!-- Geometric Grid Accent -->
+  <g stroke="#2dd4bf" stroke-opacity="0.2" stroke-width="1.5" fill="none">
+    <circle cx="650" cy="225" r="160"/>
+    <circle cx="650" cy="225" r="110"/>
+    <line x1="450" y1="225" x2="800" y2="225"/>
+    <line x1="650" y1="50" x2="650" y2="400"/>
+  </g>
+
+  <!-- Illustration Card Right: VNeID Mobile App Badge -->
+  <g transform="translate(520, 80)">
+    <rect width="220" height="290" rx="22" fill="#0f172a" stroke="#2dd4bf" stroke-width="3" filter="drop-shadow(0 10px 20px rgba(0,0,0,0.3))"/>
+    
+    <!-- Screen -->
+    <rect x="12" y="16" width="196" height="258" rx="14" fill="#134e4a"/>
+
+    <!-- VNeID Emblem Mock -->
+    <circle cx="110" cy="95" r="45" fill="url(#goldGrad)"/>
+    <circle cx="110" cy="95" r="38" fill="#042f2e"/>
+    <!-- Yellow star -->
+    <polygon points="110,68 116,84 133,85 120,95 124,112 110,102 96,112 100,95 87,85 104,84" fill="#fbbf24"/>
+
+    <text x="110" y="165" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="18" text-anchor="middle">VNeID</text>
+    <text x="110" y="185" fill="#a7f3d0" font-family="sans-serif" font-size="11.5" text-anchor="middle">ĐỊNH DANH ĐIỆN TỬ</text>
+
+    <!-- Verified Badge -->
+    <rect x="35" y="210" width="150" height="34" rx="17" fill="#10b981"/>
+    <text x="110" y="232" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="13" text-anchor="middle">✓ ĐÃ KÍCH HOẠT MỨC 2</text>
+  </g>
+
+  <!-- Left Content Info -->
+  <g transform="translate(50, 110)">
+    <!-- Tag -->
+    <rect width="180" height="32" rx="16" fill="url(#goldGrad)"/>
+    <text x="90" y="21" fill="#1e293b" font-family="sans-serif" font-weight="bold" font-size="12.5" text-anchor="middle" letter-spacing="0.5">📱 DỊCH VỤ CÔNG & ĐỀ ÁN 06</text>
+
+    <text x="0" y="85" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="34">BẢO MẬT TÀI KHOẢN</text>
+    <text x="0" y="130" fill="#a7f3d0" font-family="sans-serif" font-weight="800" font-size="34">VNeID ĐIỆN TỬ</text>
+
+    <text x="0" y="178" fill="#e2e8f0" font-family="sans-serif" font-size="16" font-weight="500">Tuyệt đối không giao tài khoản, mật khẩu và mã OTP</text>
+    <text x="0" y="204" fill="#99f6e4" font-family="sans-serif" font-size="14">Cảnh giác trước các đối tượng gọi điện "hướng dẫn kích hoạt mức 2" qua đường link lạ.</text>
+
+    <g transform="translate(0, 235)">
+      <rect width="250" height="38" rx="8" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.25"/>
+      <text x="15" y="24" fill="#fef08a" font-family="sans-serif" font-weight="bold" font-size="13">🛡️ Hướng dẫn: Công an xã Ia Băng</text>
+    </g>
+  </g>
+</svg>

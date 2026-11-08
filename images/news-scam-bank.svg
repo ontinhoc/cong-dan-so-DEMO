@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="800" height="450">
+  <defs>
+    <linearGradient id="bgBank" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+    <radialGradient id="amberGlow" cx="75%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="800" height="450" fill="url(#bgBank)"/>
+  <circle cx="660" cy="180" r="260" fill="url(#amberGlow)"/>
+
+  <!-- Right Visual: Bank Card & QR Warning -->
+  <g transform="translate(510, 100)">
+    <!-- Credit Card -->
+    <rect width="240" height="150" rx="16" fill="linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%)" stroke="#38bdf8" stroke-width="2" filter="drop-shadow(0 10px 20px rgba(0,0,0,0.4))"/>
+    <circle cx="45" cy="40" r="16" fill="#fbbf24" fill-opacity="0.8"/>
+    <circle cx="65" cy="40" r="16" fill="#f87171" fill-opacity="0.8"/>
+    <rect x="25" y="75" width="45" height="32" rx="6" fill="#fef08a"/>
+    <text x="25" y="130" fill="#ffffff" font-family="monospace" font-size="14" letter-spacing="2">•••• •••• •••• 8866</text>
+
+    <!-- Floating Shield with Red Lock -->
+    <g transform="translate(140, 100)">
+      <circle cx="40" cy="40" r="36" fill="#ef4444" stroke="#ffffff" stroke-width="3"/>
+      <!-- Lock icon -->
+      <rect x="28" y="38" width="24" height="18" rx="4" fill="#ffffff"/>
+      <path d="M 33,38 L 33,31 C 33,26 47,26 47,31 L 47,38" fill="none" stroke="#ffffff" stroke-width="3"/>
+    </g>
+
+    <!-- OTP Code Badge -->
+    <g transform="translate(-10, 165)">
+      <rect width="180" height="42" rx="10" fill="#0f172a" stroke="#ef4444" stroke-width="2"/>
+      <text x="15" y="26" fill="#f87171" font-family="monospace" font-weight="bold" font-size="15">OTP: ****** ⛔</text>
+    </g>
+  </g>
+
+  <!-- Left Content Info -->
+  <g transform="translate(50, 110)">
+    <!-- Tag -->
+    <rect width="190" height="32" rx="16" fill="url(#amberGrad)"/>
+    <text x="95" y="21" fill="#ffffff" font-family="sans-serif" font-weight="bold" font-size="12" text-anchor="middle" letter-spacing="0.5">💳 AN TOÀN TÀI KHOẢN</text>
+
+    <text x="0" y="85" fill="#ffffff" font-family="sans-serif" font-weight="800" font-size="34">CẢNH GIÁC BẪY</text>
+    <text x="0" y="130" fill="#fde047" font-family="sans-serif" font-weight="800" font-size="34">MÃ QR & MÃ OTP</text>
+
+    <text x="0" y="178" fill="#e2e8f0" font-family="sans-serif" font-size="16" font-weight="500">Mã OTP là chìa khóa mở két sắt tiền của bạn</text>
+    <text x="0" y="204" fill="#94a3b8" font-family="sans-serif" font-size="14">Không quét mã QR lạ tại điểm thanh toán chưa xác thực chủ tài khoản.</text>
+
+    <g transform="translate(0, 235)">
+      <rect width="270" height="38" rx="8" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.25"/>
+      <text x="15" y="24" fill="#67e8f9" font-family="sans-serif" font-weight="bold" font-size="13">🔒 Nguyên tắc: Không chia sẻ OTP</text>
+    </g>
+  </g>
+</svg>
