@@ -6,44 +6,6 @@
   <title>Cổng Tuyên truyền & Thử thách Kỹ năng số</title>
   <style>
     /* ==========================================================================
-       DEMO BAR (Thanh chọn giao diện thử nghiệm khi gửi khách)
-       ========================================================================== */
-    .demo-bar {
-      background: #1e293b;
-      color: #f8fafc;
-      padding: 8px 12px;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      flex-wrap: wrap;
-      border-bottom: 2px solid var(--accent);
-      position: relative;
-      z-index: 200;
-    }
-    .demo-btn-theme {
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #ffffff;
-      padding: 4px 10px;
-      border-radius: 14px;
-      font-size: 12px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .demo-btn-theme:hover { background: var(--accent); color: #000; }
-    .demo-close {
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      font-size: 14px;
-      cursor: pointer;
-      margin-left: 6px;
-    }
-
-    /* ==========================================================================
        THEME VARIABLES & CSS RESET
        ========================================================================== */
     :root {
@@ -64,28 +26,21 @@
       --font: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
-    /* Theme: Đoàn Thanh Niên */
-    body.theme-doanthanhnien {
-      --primary: #005baa;
-      --primary-dark: #00407a;
-      --primary-light: #e6f1fc;
-      --accent: #ff9800;
-      --accent-hover: #e68900;
-      --bg: #f0f5fa;
-      --border: #cde0f2;
-      --shadow: 0 4px 18px rgba(0, 64, 122, 0.08);
+    .cand-logo {
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      border-radius: 50%;
+      filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 2px;
     }
-
-    /* Theme: Chính Quyền / Đảng Bộ */
-    body.theme-chinhquyen {
-      --primary: #a61c1c;
-      --primary-dark: #7a1212;
-      --primary-light: #fbecec;
-      --accent: #eab308;
-      --accent-hover: #ca8a04;
-      --bg: #fdf8f6;
-      --border: #f0d5d5;
-      --shadow: 0 4px 18px rgba(122, 18, 18, 0.08);
+    @media (max-width: 520px) {
+      .cand-logo {
+        width: 72px;
+        height: 72px;
+      }
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -459,21 +414,12 @@
 </head>
 <body class="theme-cand">
 
-  <!-- THANH ĐIỀU KHIỂN DEMO (Dành cho khách hàng bấm test thử giao diện) -->
-  <div class="demo-bar" id="demoControlBar">
-    <span>💡 <b>BẢN DEMO THỬ NGHIỆM</b> (Chọn xem mẫu):</span>
-    <button class="demo-btn-theme" onclick="setDemoTheme('cand')">🛡️ Công An Xã</button>
-    <button class="demo-btn-theme" onclick="setDemoTheme('doanthanhnien')">🌟 Đoàn Thanh Niên</button>
-    <button class="demo-btn-theme" onclick="setDemoTheme('chinhquyen')">🏛️ UBND Xã / Đảng Bộ</button>
-    <button class="demo-close" title="Ẩn thanh demo" onclick="document.getElementById('demoControlBar').style.display='none'">✕</button>
-  </div>
-
   <!-- HEADER -->
   <header class="hero">
     <div class="wrap">
       <div class="hero-top">🌟 PHONG TRÀO BÌNH DÂN HỌC VỤ SỐ • NGHỊ QUYẾT 57</div>
       <div class="hero-main">
-        <div class="hero-badge-icon" id="heroIcon">🛡️</div>
+        <img src="logo.jpg" alt="Huy hiệu Công an xã Ia Băng" class="cand-logo" id="heroLogoImg" />
         <div>
           <h1 class="hero-title" id="unitNameTitle">CÔNG AN XÃ IA BĂNG</h1>
           <div class="hero-sub" id="sloganTitle">Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người</div>
@@ -768,35 +714,6 @@
       if (tabId === 'tab-handbook') loadHandbookData();
     }
 
-    // Hàm chuyển đổi nhanh giao diện dành cho khách test demo
-    function setDemoTheme(theme) {
-      if (theme === 'cand') {
-        applyConfig({
-          unitName: 'CÔNG AN XÃ IA BĂNG',
-          slogan: 'Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người',
-          hotline: '02693.599.699',
-          theme: 'cand',
-          certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ'
-        });
-      } else if (theme === 'doanthanhnien') {
-        applyConfig({
-          unitName: 'ĐOÀN THANH NIÊN XÃ IA BĂNG',
-          slogan: 'Tuổi trẻ tiên phong Chuyển đổi số • Chung tay xây dựng xã hội số',
-          hotline: '02693.599.699',
-          theme: 'doanthanhnien',
-          certTitle: 'CHỨNG NHẬN THANH NIÊN SỐ TIÊU BIỂU'
-        });
-      } else if (theme === 'chinhquyen') {
-        applyConfig({
-          unitName: 'UBND XÃ IA BĂNG',
-          slogan: 'Chính quyền số vì nhân dân phục vụ • Đề án 06 quốc gia',
-          hotline: '02693.599.699',
-          theme: 'chinhquyen',
-          certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ GƯƠNG MẪU'
-        });
-      }
-    }
-
     // 1. KHỞI TẠO DỮ LIỆU BAN ĐẦU
     window.addEventListener('DOMContentLoaded', () => {
       initAppConfig();
@@ -817,7 +734,7 @@
     function applyConfig(cfg) {
       APP_CONFIG = Object.assign({}, APP_CONFIG, cfg);
 
-      // Cập nhật giao diện
+      // Cập nhật giao diện Công An Xã Ia Băng
       document.getElementById('unitNameTitle').textContent = APP_CONFIG.unitName;
       document.getElementById('sloganTitle').textContent = APP_CONFIG.slogan;
       document.getElementById('hotlineNumber').textContent = APP_CONFIG.hotline;
@@ -825,14 +742,7 @@
       document.getElementById('footerUnitText').textContent = APP_CONFIG.unitName;
       document.getElementById('footerHotlineLink').textContent = APP_CONFIG.hotline;
 
-      // Đổi Theme màu sắc
-      document.body.className = 'theme-' + (APP_CONFIG.theme || 'cand');
-      const iconEl = document.getElementById('heroIcon');
-      if (APP_CONFIG.theme === 'doanthanhnien') iconEl.textContent = '🌟';
-      else if (APP_CONFIG.theme === 'chinhquyen') iconEl.textContent = '🏛️';
-      else iconEl.textContent = '🛡️';
-
-      // Nạp danh sách Thôn vào dropdown
+      // Nạp danh sách 14 Thôn/Buôn vào dropdown
       const sel = document.getElementById('selectVillage');
       sel.innerHTML = '<option value="">-- Vui lòng chọn địa bàn cư trú --</option>';
       (APP_CONFIG.villages || []).forEach(v => {
@@ -1028,6 +938,19 @@
       ctx.font = '800 24px var(--font)';
       ctx.fillText(APP_CONFIG.unitName.toUpperCase(), w / 2, 110);
 
+      // Vẽ huy hiệu Công an góc trên bên trái chứng nhận (nếu có ảnh)
+      const logoImg = document.getElementById('heroLogoImg');
+      if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+        try {
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(100, 95, 42, 0, Math.PI * 2);
+          ctx.clip();
+          ctx.drawImage(logoImg, 58, 53, 84, 84);
+          ctx.restore();
+        } catch(e) {}
+      }
+
       // 4. Tiêu đề Chứng Nhận
       ctx.fillStyle = '#b31d1d';
       ctx.font = '900 36px var(--font)';
@@ -1053,7 +976,7 @@
       // 6. Địa bàn & Điểm số
       ctx.fillStyle = '#222222';
       ctx.font = '600 20px var(--font)';
-      ctx.fillText(`Đơn vị cư trú: ${currentUserInfo.village}`, w / 2, 335);
+      ctx.fillText(`Đơn vị cư trú: ${currentUserInfo.village} • Xã Ia Băng`, w / 2, 335);
 
       ctx.fillStyle = '#0e6b56';
       ctx.font = 'bold 22px var(--font)';
@@ -1076,9 +999,9 @@
       ctx.textAlign = 'right';
       ctx.font = 'bold 16px var(--font)';
       ctx.fillStyle = '#074e3e';
-      ctx.fillText('BAN CHỈ ĐẠO CHUYỂN ĐỔI SỐ', w - 80, 505);
+      ctx.fillText('TRƯỞNG CÔNG AN XÃ', w - 80, 505);
 
-      // Vẽ hình dấu mộc đỏ tròn
+      // Vẽ hình dấu mộc đỏ tròn Công an xã
       ctx.save();
       ctx.strokeStyle = '#c62828';
       ctx.fillStyle = '#c62828';
@@ -1088,10 +1011,10 @@
       ctx.stroke();
 
       ctx.textAlign = 'center';
-      ctx.font = 'bold 10px var(--font)';
-      ctx.fillText('ĐÃ XÁC THỰC', w - 175, 540);
-      ctx.font = 'bold 12px var(--font)';
-      ctx.fillText('CÔNG DÂN SỐ', w - 175, 555);
+      ctx.font = 'bold 9px var(--font)';
+      ctx.fillText('CÔNG AN XÃ IA BĂNG', w - 175, 538);
+      ctx.font = 'bold 11px var(--font)';
+      ctx.fillText('★ ĐÃ XÁC THỰC ★', w - 175, 554);
       ctx.restore();
 
       // 9. Mã tra cứu chống làm giả (Góc trái dưới)
