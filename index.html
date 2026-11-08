@@ -938,6 +938,17 @@
       ]
     };
 
+    // Hàm bảo mật: Khử độc ký tự đầu vào tránh tấn công XSS
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
     // State quản lý phần thi
     let currentQuestions = [];
     let currentPos = 0;
@@ -1120,7 +1131,7 @@
 
     // 2. LOGIC LÀM BÀI TRẮC NGHIỆM
     function startQuizSession() {
-      const nameInput = document.getElementById('inputFullName').value.trim();
+      const rawName = document.getElementById('inputFullName').value.trim();
       const villageSelect = document.getElementById('selectVillage').value;
 
       if (!villageSelect) {
@@ -1128,8 +1139,11 @@
         return;
       }
 
+      // Làm sạch ký tự lạ và giới hạn độ dài hợp lệ
+      const cleanName = rawName.replace(/[<>]/g, '').substring(0, 60);
+
       currentUserInfo = {
-        fullName: nameInput || 'Công dân số',
+        fullName: cleanName || 'Công dân số',
         village: villageSelect
       };
 
@@ -1186,7 +1200,7 @@
         const btn = document.createElement('button');
         btn.className = 'quiz-option';
         btn.id = 'opt-' + idx;
-        btn.innerHTML = `<strong>${String.fromCharCode(65 + idx)}.</strong> ${optText}`;
+        btn.innerHTML = `<strong>${String.fromCharCode(65 + idx)}.</strong> ${escapeHtml(optText)}`;
         btn.onclick = () => selectOption(idx);
         optBox.appendChild(btn);
       });
@@ -1439,9 +1453,9 @@
 
           tr.innerHTML = `
             <td>${rankHtml}</td>
-            <td><strong>${v.name}</strong></td>
-            <td style="text-align:center;"><span class="badge" style="margin:0;">${v.participants} lượt</span></td>
-            <td style="text-align:right; font-weight:750; color:var(--primary);">${v.avgScore}/10</td>
+            <td><strong>${escapeHtml(v.name)}</strong></td>
+            <td style="text-align:center;"><span class="badge" style="margin:0;">${escapeHtml(v.participants)} lượt</span></td>
+            <td style="text-align:right; font-weight:750; color:var(--primary);">${escapeHtml(v.avgScore)}/10</td>
           `;
           tbody.appendChild(tr);
         });
@@ -1457,9 +1471,9 @@
           const div = document.createElement('div');
           div.className = 'feature-box';
           div.innerHTML = `
-            <div style="font-weight:750; color:var(--primary);">🌟 ${h.name}</div>
-            <div style="font-size:13px; color:var(--text-muted);">Đơn vị: ${h.village} • <b>${h.score}/10 câu</b></div>
-            <div style="font-size:11px; color:#888; margin-top:2px;">Mã số: ${h.certCode}</div>
+            <div style="font-weight:750; color:var(--primary);">🌟 ${escapeHtml(h.name)}</div>
+            <div style="font-size:13px; color:var(--text-muted);">Đơn vị: ${escapeHtml(h.village)} • <b>${escapeHtml(h.score)}/10 câu</b></div>
+            <div style="font-size:11px; color:#888; margin-top:2px;">Mã số: ${escapeHtml(h.certCode)}</div>
           `;
           honorsBox.appendChild(div);
         });

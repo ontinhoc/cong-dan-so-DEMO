@@ -242,12 +242,16 @@ function submitQuizResult(data) {
     const randomSuffix = Math.floor(1000 + Math.random() * 9000);
     const certCode = 'CDS-' + dateCode + '-' + randomSuffix;
 
-    const hoTen = (data.fullName || 'Công dân ẩn danh').trim();
-    const thonXom = (data.village || 'Chưa chọn').trim();
-    const diemSo = parseInt(data.score || 0, 10);
-    const tongCau = parseInt(data.total || 10, 10);
+    const hoTen = (data.fullName || 'Công dân ẩn danh').toString().trim().replace(/[<>]/g, '').substring(0, 70);
+    const thonXom = (data.village || 'Chưa chọn').toString().trim().replace(/[<>]/g, '').substring(0, 70);
+    let diemSo = parseInt(data.score || 0, 10);
+    let tongCau = parseInt(data.total || 10, 10);
+    if (isNaN(diemSo) || diemSo < 0) diemSo = 0;
+    if (isNaN(tongCau) || tongCau <= 0) tongCau = 10;
+    if (diemSo > tongCau) diemSo = tongCau; // Chống gian lận gửi điểm vượt trần
     const tyLeDung = Math.round((diemSo / tongCau) * 100);
-    const thoiGianGiay = parseInt(data.durationSeconds || 0, 10);
+    let thoiGianGiay = parseInt(data.durationSeconds || 0, 10);
+    if (isNaN(thoiGianGiay) || thoiGianGiay < 0) thoiGianGiay = 0;
 
     let xepLoai = 'Cần cố gắng';
     if (tyLeDung >= 90) xepLoai = 'Xuất sắc';
