@@ -50,12 +50,12 @@ function setupDatabase() {
     configSheet = ss.insertSheet(SHEET_CONFIG);
     configSheet.getRange('A1:B11').setValues([
       ['Khoa', 'GiaTri'],
-      ['TEN_DON_VI', 'CÔNG AN XÃ KON GANG'],
+      ['TEN_DON_VI', 'CÔNG AN XÃ IA BĂNG'],
       ['SLOGAN', 'Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người'],
-      ['SO_DIEN_THOAI_HOTLINE', '02693.602.006'],
+      ['SO_DIEN_THOAI_HOTLINE', '02693.599.699'],
       ['THEME_MAU_SAC', 'cand'], // 'cand' (Công an: Xanh/Vàng), 'doanthanhnien' (Xanh dương), 'chinhquyen' (Đỏ/Vàng)
       ['TIEU_DE_CHUNG_NHAN', 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ'],
-      ['DANH_SACH_THON', 'Thôn 1, Thôn 2, Thôn 3, Thôn 4, Làng Blo, Làng Roh, Làng Kon Sơ Lăng'],
+      ['DANH_SACH_THON', 'Thôn Bông Lar, Thôn Châm Prông, Thôn La Sơn, Thôn O, Thôn Hàm Rồng, Thôn O Đất, Thôn Thung Nôm, Thôn Bia Tĩh, Thôn Blo, Thôn Adơkkông, Thôn Ia Pết, Thôn Brong Goai, Thôn Alphun, Thôn Ođer'],
       ['SO_CAU_MOI_LUOT_THI', '10'],
       ['DIEM_DAT_CHUNG_NHAN', '7'], // Đạt từ 7/10 trở lên mới cấp chứng nhận
       ['LINK_KIEM_TRA_LUA_DAO', 'https://chongluadao.vn/'],
@@ -137,9 +137,9 @@ function getAppConfig() {
     }
 
     return {
-      unitName: config['TEN_DON_VI'] || 'CÔNG AN XÃ KON GANG',
+      unitName: config['TEN_DON_VI'] || 'CÔNG AN XÃ IA BĂNG',
       slogan: config['SLOGAN'] || 'Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người',
-      hotline: config['SO_DIEN_THOAI_HOTLINE'] || '02693.602.006',
+      hotline: config['SO_DIEN_THOAI_HOTLINE'] || '02693.599.699',
       theme: config['THEME_MAU_SAC'] || 'cand',
       certTitle: config['TIEU_DE_CHUNG_NHAN'] || 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ',
       quizLength: parseInt(config['SO_CAU_MOI_LUOT_THI'] || '10', 10),
@@ -154,15 +154,20 @@ function getAppConfig() {
 
 function getDefaultConfig() {
   return {
-    unitName: 'CÔNG AN XÃ KON GANG',
+    unitName: 'CÔNG AN XÃ IA BĂNG',
     slogan: 'Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người',
-    hotline: '02693.602.006',
+    hotline: '02693.599.699',
     theme: 'cand',
     certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ',
     quizLength: 10,
     certMinScore: 7,
     scamCheckUrl: 'https://chongluadao.vn/',
-    villages: ['Thôn 1', 'Thôn 2', 'Thôn 3', 'Thôn 4', 'Làng Blo', 'Làng Roh', 'Làng Kon Sơ Lăng']
+    villages: [
+      'Thôn Bông Lar', 'Thôn Châm Prông', 'Thôn La Sơn', 'Thôn O',
+      'Thôn Hàm Rồng', 'Thôn O Đất', 'Thôn Thung Nôm', 'Thôn Bia Tĩh',
+      'Thôn Blo', 'Thôn Adơkkông', 'Thôn Ia Pết', 'Thôn Brong Goai',
+      'Thôn Alphun', 'Thôn Ođer'
+    ]
   };
 }
 

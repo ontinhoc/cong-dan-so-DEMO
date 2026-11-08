@@ -475,12 +475,12 @@
       <div class="hero-main">
         <div class="hero-badge-icon" id="heroIcon">🛡️</div>
         <div>
-          <h1 class="hero-title" id="unitNameTitle">CÔNG AN XÃ KON GANG</h1>
+          <h1 class="hero-title" id="unitNameTitle">CÔNG AN XÃ IA BĂNG</h1>
           <div class="hero-sub" id="sloganTitle">Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người</div>
         </div>
       </div>
-      <a href="tel:02693602006" class="hero-hotline" id="hotlineBtn">
-        📞 Trực ban hỗ trợ: <span id="hotlineNumber">02693.602.006</span>
+      <a href="tel:02693599699" class="hero-hotline" id="hotlineBtn">
+        📞 Trực ban hỗ trợ: <span id="hotlineNumber">02693.599.699</span>
       </a>
     </div>
   </header>
@@ -716,8 +716,8 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="wrap">
-      <strong id="footerUnitText">CÔNG AN XÃ KON GANG</strong><br />
-      <span>Trực ban tiếp dân: <a href="tel:02693602006" id="footerHotlineLink">02693.602.006</a></span><br />
+      <strong id="footerUnitText">CÔNG AN XÃ IA BĂNG</strong><br />
+      <span>Trực ban tiếp dân: <a href="tel:02693599699" id="footerHotlineLink">02693.599.699</a></span><br />
       <span style="font-size: 11.5px; color: #a4c9bc; margin-top: 6px; display: inline-block;">
         Nền tảng Tuyên truyền & Thi đua Công dân số cơ sở • Bản quyền phục vụ nhân dân
       </span>
@@ -730,12 +730,17 @@
   <script>
     // Cấu hình mặc định của ứng dụng (sẽ ghi đè khi tải từ Apps Script)
     let APP_CONFIG = {
-      unitName: 'CÔNG AN XÃ KON GANG',
+      unitName: 'CÔNG AN XÃ IA BĂNG',
       slogan: 'Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người',
-      hotline: '02693.602.006',
+      hotline: '02693.599.699',
       theme: 'cand',
       certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ',
-      villages: ['Thôn 1', 'Thôn 2', 'Thôn 3', 'Thôn 4', 'Làng Blo', 'Làng Roh', 'Làng Kon Sơ Lăng']
+      villages: [
+        'Thôn Bông Lar', 'Thôn Châm Prông', 'Thôn La Sơn', 'Thôn O',
+        'Thôn Hàm Rồng', 'Thôn O Đất', 'Thôn Thung Nôm', 'Thôn Bia Tĩh',
+        'Thôn Blo', 'Thôn Adơkkông', 'Thôn Ia Pết', 'Thôn Brong Goai',
+        'Thôn Alphun', 'Thôn Ođer'
+      ]
     };
 
     // State quản lý phần thi
@@ -767,25 +772,25 @@
     function setDemoTheme(theme) {
       if (theme === 'cand') {
         applyConfig({
-          unitName: 'CÔNG AN XÃ KON GANG',
+          unitName: 'CÔNG AN XÃ IA BĂNG',
           slogan: 'Nghị quyết 57 trong tầm tay • Kỹ năng số cho mọi người',
-          hotline: '02693.602.006',
+          hotline: '02693.599.699',
           theme: 'cand',
           certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ'
         });
       } else if (theme === 'doanthanhnien') {
         applyConfig({
-          unitName: 'ĐOÀN THANH NIÊN XÃ KON GANG',
+          unitName: 'ĐOÀN THANH NIÊN XÃ IA BĂNG',
           slogan: 'Tuổi trẻ tiên phong Chuyển đổi số • Chung tay xây dựng xã hội số',
-          hotline: '0988.123.456',
+          hotline: '02693.599.699',
           theme: 'doanthanhnien',
           certTitle: 'CHỨNG NHẬN THANH NIÊN SỐ TIÊU BIỂU'
         });
       } else if (theme === 'chinhquyen') {
         applyConfig({
-          unitName: 'UBND XÃ KON GANG',
+          unitName: 'UBND XÃ IA BĂNG',
           slogan: 'Chính quyền số vì nhân dân phục vụ • Đề án 06 quốc gia',
-          hotline: '02693.888.999',
+          hotline: '02693.599.699',
           theme: 'chinhquyen',
           certTitle: 'GIẤY CHỨNG NHẬN CÔNG DÂN SỐ GƯƠNG MẪU'
         });
@@ -1265,14 +1270,17 @@
     function getMockLeaderboard() {
       return {
         villageRankings: [
-          { name: 'Thôn 1', participants: 412, avgScore: '8.8' },
-          { name: 'Làng Blo', participants: 350, avgScore: '8.4' },
-          { name: 'Thôn 2', participants: 280, avgScore: '8.1' },
-          { name: 'Làng Roh', participants: 238, avgScore: '7.9' }
+          { name: 'Thôn Bông Lar', participants: 432, avgScore: '8.9' },
+          { name: 'Thôn Châm Prông', participants: 385, avgScore: '8.6' },
+          { name: 'Thôn La Sơn', participants: 340, avgScore: '8.4' },
+          { name: 'Thôn Hàm Rồng', participants: 295, avgScore: '8.2' },
+          { name: 'Thôn Bia Tĩh', participants: 260, avgScore: '8.0' },
+          { name: 'Thôn Blo', participants: 245, avgScore: '7.9' }
         ],
         recentHonors: [
-          { name: 'Đinh Thị H’Nham', village: 'Làng Blo', score: 10, certCode: 'CDS-2611-8291' },
-          { name: 'Nguyễn Văn Minh', village: 'Thôn 1', score: 10, certCode: 'CDS-2611-7412' }
+          { name: 'Rơ Châm H’Bích', village: 'Thôn Bông Lar', score: 10, certCode: 'CDS-2611-9128' },
+          { name: 'Nguyễn Văn Thành', village: 'Thôn La Sơn', score: 10, certCode: 'CDS-2611-8452' },
+          { name: 'Ksor Ju', village: 'Thôn Châm Prông', score: 10, certCode: 'CDS-2611-7631' }
         ]
       };
     }
